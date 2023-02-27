@@ -4,7 +4,7 @@ _Practical multithreading in C++ from Anthony Williams' book (second edition)_
 
 ## Highlights from:
 
-* ### [Chapter 01 - "Hello, world of concurrency in C++"](Chapter%2001%20-%20Hello%20world%20of%20concurrency%20in%20C++)
+* ### [Chapter 01 - "Hello, world of concurrency in C++"](Chapter%2001%20-%20Hello%2C%20world%20of%20concurrency%20in%20C%2B%2B)
 * ### [Chapter 02 - "Managing threads"](Chapter%2002%20-%20Managing%20threads)
 * ### [Chapter 03 - "Sharing data between threads"](Chapter%2003%20-%20Sharing%20data%20between%20threads)
 * ### [Chapter 04 - "Synchronising concurrent operations"](Chapter%2004%20-%20Synchronising%20concurrent%20operations)
