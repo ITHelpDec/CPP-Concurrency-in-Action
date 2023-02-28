@@ -23,6 +23,9 @@ This can be _circumnavigated_ by using either extra surrounding parentheses or b
 // this also works, but wasn't listed in the examples
 ✅: std::thread my_thread(background_task{});
 ```
-
+We can avoid the most-vexing parse entirely by using lambda's.
+```cpp
+✅: std::thread my_thread( [] () { std::cout << "woof\n"; } );
+```
 #
 ### ...work in progress
