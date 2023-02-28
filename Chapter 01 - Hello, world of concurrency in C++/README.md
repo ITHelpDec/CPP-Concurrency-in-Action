@@ -7,4 +7,13 @@
 > "_The CPU will then potentially have to load the memory for the instructions and data for the new task into the cache, which can prevent the CPU from executing any instructions, causing further delay."_ – pg. 3
 
 #
+### Distributed systems
+> _"Using separate processes for concurrency also has an additional advantage – you can run the separate processes on distinct machines connected over a network"_ – pg. 5
+
+#
+### Concurrency vs Parallelism
+A nice way to define the differences between concurrency and parallelism.
+> _"People talk about parallelism when their primary concern is taking advantage of the available hardware to increase the performance of bulk data processing, whereas people talk about concurrency when their primary concern is separation of concerns, or responsiveness"_ – pg. 7
+
+#
 ### ...work in progress
