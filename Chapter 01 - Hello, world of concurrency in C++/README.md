@@ -67,4 +67,5 @@ A basic example of how to run "Hello, world!" concurrently.
 [hello_world.cpp](hello_world.cpp)
 
 #
-### ...work in progress
+### Summary
+Nice intro to the history and tidbits of concurrency - just a few notes'n'quotes to things that seemed worthwhile jotting down.
