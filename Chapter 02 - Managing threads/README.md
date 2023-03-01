@@ -72,4 +72,10 @@ So many important tidbits in these paragraphs - a lot to take in:
 > _"Alternatively, you can ensure that the thread has completed execution before the function exits by joining with the thread."_ – pg. 20
 
 #
+### Waiting for a thread to complete
+We can use `.join()` instead of `.detach()`, but be mindful that it is a one-trick pony, and can be called only once i.e. `joinable() == false`.
+
+[waiting_game.cpp](waiting_game.cpp) | [raii.cpp](raii.cpp)
+
+#
 ### ...work in progress
