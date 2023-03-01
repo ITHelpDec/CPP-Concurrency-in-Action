@@ -38,7 +38,9 @@ Plenty of golden nuggets in this book so far.
 
 #
 ### Accessing a local variable with a detached thread after it has been destroyed
-I came across [__Mermaid__]() while trying to look for a simple bar chart markdown - I wasn't successful with the bar chart, but Mermaid seems like a good match for writing out the flow of a multithreaded programme.
+I came across [__Mermaid__](https://mermaid.js.org/syntax/sequenceDiagram.html) while trying to look for a simple bar chart markdown a while back (please share if you know of one!).
+
+I wasn't successful with the bar chart, but Mermaid seems like a good match for writing out the flow of a multithreaded programme.
 
 [oops.cpp](oops.cpp)
 ```mermaid
