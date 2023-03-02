@@ -100,4 +100,16 @@ In order ot detach a thread, it must be a-ttached to another; same goes for `joi
 [word_processor.cpp](word_processor.cpp)
 
 #
+### Passing arguments
+We need to be especially mindful of passing arguments in threads.
+
+Passing a buffer will actually send a pointer to that buffer (as opposed to the contents) - there is a strong chance the function will exist before the buffer is converted, so we can use `std::string()` to avoid the possibility of a dangling pointer.
+
+Similar precautions are needed when passing an argument by reference - the `std::thread` constructor blindly copies the supplied values, but the internal code passes copied arguments as rvalues in order to work with move-only types.
+
+This will, however, try to call `update_data_for_widget()` with `data` as an rvalue, when it is expecting a non-const reference - we can fix this use by wrapping our variable in `std::ref` (similar to what is done when using `std::bind`).
+
+[buffer.cpp](buffer.cpp) | [ref.cpp](ref.cpp)
+
+#
 ### ...work in progress
