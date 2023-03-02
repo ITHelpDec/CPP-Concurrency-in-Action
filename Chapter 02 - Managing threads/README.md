@@ -83,7 +83,17 @@ In `raii.cpp`, the copy constructors are marked as `delete` to prevent compiler 
 
 > _"Copying or assigning such an object would be dangerous, because it might then outlive the scope of the therad it was joining."_ – pg. 22
 
-> _"If you don't need to wait for a thread to finish, ...[detach] it.<br/>This...ensures that `std::terminate()` won't be called when the `std::thread is destroyed, even though the thread is still running in the background."_ – pg. 22
+> _"If you don't need to wait for a thread to finish, ...[detach] it.<br/>This...ensures that `std::terminate()` won't be called when the `std::thread` is destroyed, even though the thread is still running in the background."_ – pg. 22
+
+#
+### Detached threads
+> _"Detached threads are often called daemon threads"_ – pg. 23
+
+Detached threads are great for the likes of the following:
+* Longer-lasting processes
+* Filesystem monitoring
+* Cache clearers
+* Data structure optimisers
 
 #
 ### ...work in progress
