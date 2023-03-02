@@ -10,7 +10,7 @@ void edit_document(const std::string &filename) {
         
         if (cmd.type == open_new_document) {
             std::string const new_name = get_filename_from_user();
-            std::thread t(edit_document.new_name);
+            std::thread t(edit_document, new_name);
             t.detach();
         } else {
             process_user_input(cmd);
