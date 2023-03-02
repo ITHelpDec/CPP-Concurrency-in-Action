@@ -77,5 +77,13 @@ We can use `.join()` instead of `.detach()`, but be mindful that it is a one-tri
 
 [waiting_game.cpp](waiting_game.cpp) | [raii.cpp](raii.cpp)
 
+The author raises a valid point about reverse-order deconstruction (rewinding the stack) when execution of the current thread reaches the end of `f`.
+
+In `raii.cpp`, the copy constructors are marked as `delete` to prevent compiler synthesisation:
+
+> _"Copying or assigning such an object would be dangerous, because it might then outlive the scope of the therad it was joining."_ – pg. 22
+
+> _"If you don't need to wait for a thread to finish, ...[detach] it.<br/>This...ensures that `std::terminate()` won't be called when the `std::thread is destroyed, even though the thread is still running in the background."_ – pg. 22
+
 #
 ### ...work in progress
