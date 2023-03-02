@@ -95,5 +95,9 @@ Detached threads are great for the likes of the following:
 * Cache clearers
 * Data structure optimisers
 
+In order ot detach a thread, it must be a-ttached to another; same goes for `join()` - `.joinable()` must be set to `true`.
+
+[word_processor.cpp](word_processor.cpp)
+
 #
 ### ...work in progress
