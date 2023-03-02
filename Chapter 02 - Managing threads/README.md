@@ -111,5 +111,24 @@ This will, however, try to call `update_data_for_widget()` with `data` as an rva
 
 [buffer.cpp](buffer.cpp) | [ref.cpp](ref.cpp)
 
+You can also pass member functions with some reference trickery.
+```cpp
+struct Dog { void woof(); };
+Dog my_dog;
+std::thread t(&Dog::woof, &my_dog); // i.e. my_dog.woof();
+```
+
+#
+### Move semantics
+Be mindful of move-semantics, especially with the likes of smart pointers.
+
+> _"Where the source object is temporary, the move is automatic, but where the source is a named value, the transfer must be requested directly by invoking `std::move()`"_ – pg. 26
+
+```cpp
+void woof(std::unique_ptr<int>);
+auto p = std::make_unique<int>(42);
+std::thread t(woof, std::move(p)); // ownership transferred
+```
+
 #
 ### ...work in progress
