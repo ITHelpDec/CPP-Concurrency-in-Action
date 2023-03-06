@@ -131,4 +131,21 @@ std::thread t(woof, std::move(p)); // ownership transferred
 ```
 
 #
+### Transferring ownership of a thread
+Certain resource-owning types in the C++ Standard Library like`std::ifstream`, `std::unique_ptr` and `std::thread` are move-only.
+```cpp
+std::thread t1 = std::thread(woof); // move from temporaries is implicit
+std::thread t2 = std::move(t1);     // ownership transferred
+```
+Example in book doesn't seem to run (~~calls `std::terminate`~~ EDIT: the author highlights this later on)
+
+There are plenty of golden nuggets in this book so far, but there's a pattern emerging of the code samples being more conceptual than fully-polished. I'll try expand on them (or give them more context) where possible, but this is my pet peev when working through books.
+
+#
+### Ghetto `std::thread`
+I've covered brief examples from [C++ High Performance](https://github.com/ITHelpDec/CPP-High-Performance/search?q=jthread) on C++20's introduction of `std::jthread`, but the author has been good enough to provide an example of how to build it ourselves.
+
+[jthread.cpp](jthread.cpp)
+
+#
 ### ...work in progress
