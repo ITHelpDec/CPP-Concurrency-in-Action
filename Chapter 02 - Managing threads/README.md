@@ -178,4 +178,13 @@ STL even has a `std::hash<std::thread::id>` specialisation so they can be used w
 `std::thread::id`'s usefulness might come into play when you have an initial thread that might perform slightly different work to the other subsequent threads, so you might be wise to take note of that particular thread id before continuing on with any other work.
 
 #
-### ...work in progress
+### Summary
+Not really sure how I feel about this chapter.
+
+As mentioned, some very noteworthy content, but sadly only from a conceptual point of view. I don't feel like the book goes any further than just concepts, instead of providing relevance and instruction through real-world problems. C++ High Performance suffered from this in a similiar way, but maybe not as bad as this.
+
+Examples-wise, it seems a bit silly to jump straight into parallel algorithms with a custom `std::accumulate` that's considerably slower than both the standard `std::accumulate` and `std::reduce` - an interesting exercise, but why?
+
+The allergy to whitespace has also increased from the last book I read - that, combined with the layout / spacing / font weight/serif, makes this book feel a little more challenging to read than it needs to be...a little bit of reserach into font choice and legibility / redability would go a long way.
+
+...but hey! Maybe that's just me! I'd like to hear you thoughts.
