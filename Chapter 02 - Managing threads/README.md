@@ -161,5 +161,21 @@ I've already run through the benefits of using `std::reduce` in place of creatin
 
 [par_accumulate.cpp](par_accumulate.cpp)
 
+An interesting exercise, but the actual performance is pretty rubbish looking at the Google Benchmark results - I'd need to see if the performance is more noticeable with the likes of 10e<sup>4</sup> elements and beyond.
+
+#
+### Identifying threads
+We can call the classic...
+```cpp
+std::this_thread::get_id();
+```
+...which returns an object of type `std::thread::id`.
+
+Unlike most other things in `std::thread`, `std::thread::id`'s can be _copied_ and compared (same value? same thread).
+
+STL even has a `std::hash<std::thread::id>` specialisation so they can be used with unordered associative containers.
+
+`std::thread::id`'s usefulness might come into play when you have an initial thread that might perform slightly different work to the other subsequent threads, so you might be wise to take note of that particular thread id before continuing on with any other work.
+
 #
 ### ...work in progress
