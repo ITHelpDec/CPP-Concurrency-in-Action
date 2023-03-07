@@ -2,7 +2,8 @@
 #include <thread>
 #include <iostream>
 
-void do_work(unsigned id) { std::cout << id << '\n'; }
+void do_work(unsigned id) { std::cout << id << ' '; }
+
 void f() {
     std::vector<std::thread> tvec;
     
@@ -22,3 +23,5 @@ int main()
 // OUTPUT  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+// 1 2 06 48  3 7  9 5 10 11 12 13 14 15 16 17 18 19
+// Program ended with exit code: 0
