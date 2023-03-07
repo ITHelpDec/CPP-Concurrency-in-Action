@@ -142,10 +142,15 @@ Example in book doesn't seem to run (~~calls `std::terminate`~~ EDIT: the author
 There are plenty of golden nuggets in this book so far, but there's a pattern emerging of the code samples being more conceptual than fully-polished. I'll try expand on them (or give them more context) where possible, but this is my pet peev when working through books.
 
 #
-### Ghetto `std::thread`
+### Ghetto `std::jthread`
 I've covered brief examples from [C++ High Performance](https://github.com/ITHelpDec/CPP-High-Performance/search?q=jthread) on C++20's introduction of `std::jthread`, but the author has been good enough to provide an example of how to build it ourselves.
 
 [jthread.cpp](jthread.cpp)
+
+#
+### Thread pools - an intro
+
+[thread_pool.cpp](thread_pool.cpp)
 
 #
 ### ...work in progress
