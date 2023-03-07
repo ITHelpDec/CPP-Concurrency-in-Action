@@ -156,4 +156,10 @@ An introruction to a common technique used in multithreading - populating a `std
 [thread_pool.cpp](thread_pool.cpp)
 
 #
+### `std::accumulate` gits gud
+I've already run through the benefits of using `std::reduce` in place of creating a parallel `std::accumulate` from my C++20 High Performaance repo [here](https://github.com/ITHelpDec/CPP-High-Performance/tree/main/Chapter%2014%20-%20Parallel%20Algorithms#stdaccumulate-and-stdreduce), but the author has provided a good example of how to write it on our own.
+
+[par_accumulate.cpp](par_accumulate.cpp)
+
+#
 ### ...work in progress
