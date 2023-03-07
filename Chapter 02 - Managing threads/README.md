@@ -147,8 +147,11 @@ I've covered brief examples from [C++ High Performance](https://github.com/ITHel
 
 [jthread.cpp](jthread.cpp)
 
+You can see the similarities to Nicolai Josuttis' `std::jthread` repo [here](https://github.com/josuttis/jthread/blob/master/source/jthread.hpp).
+
 #
 ### Thread pools - an intro
+An introruction to a common technique used in multithreading - populating a `std::vector` with threads then joining them back to the main thread.
 
 [thread_pool.cpp](thread_pool.cpp)
 
