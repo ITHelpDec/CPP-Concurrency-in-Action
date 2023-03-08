@@ -10,7 +10,7 @@ I love an analogy.
 ### Invariants
 Invariants are statements that hold true about a particular data structure, but which are often broken during an update e.g. the example used in the book uses a doubly-linked list.
 
-Some more [Mermaid magic](https://mermaid.js.org/syntax/gitgraph.html) below
+Some more [Mermaid magic](https://mermaid.js.org/syntax/gitgraph.html) below.
 
 ```mermaid
 ---
