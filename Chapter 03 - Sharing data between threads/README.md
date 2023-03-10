@@ -29,6 +29,24 @@ gitGraph
    merge Removal id: "4" type:NORMAL
    commit id: "5"
 ```
+Whilst already covered in C++ High Performance's chapter on concurrency, it's worth remembering that some extra precautions are needed in order to modify objects / elements in a thread-safe manner.
+> _"The simplest pontential problem with modifying data that's shared between threads is that of broken invariants."_ – pg. 37
+
+#
+### Race conditions (the dreaded undefined behaviour)
+Another good analogy - this time with people selling tickets at the cinema without any central reference to stop them from double-booking the same seat (love an analogy).
+
+#
+### Avoiding race conditions
+* wrap your data structure with a protective mechanism
+* lock-free programming (difficult to get right)
+* handle the updates to the data structure as a transaction ([software transactional memory](https://en.wikipedia.org/wiki/Software_transactional_memory))
+
+#
+### `std::mutex`
+I wasn't aware `std::mutex` had a `.lock()` and `.unlock()` function, but now it makes more sense why you would want to wrap mutexes in their scopes - RAII means you won't accidentally forget to call `.unlock()`, and it also protects you from exceptions).
+
+[mutex.cpp](mutex.cpp)
 
 #
 ### ...work in progress
