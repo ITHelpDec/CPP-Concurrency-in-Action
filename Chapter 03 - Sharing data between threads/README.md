@@ -48,5 +48,9 @@ I wasn't aware `std::mutex` had a `.lock()` and `.unlock()` function, but now it
 
 [mutex.cpp](mutex.cpp)
 
+I'll be honest, though - the example is a bit keek.
+
+Yes, we use a `std::mutex` and a `std::lock_guard`, but there's no concurrency (nor any need for it, for that matter, in this example) - I'm yet to test it, but my gut says you'd be better off writing the programme sequentially...
+
 #
 ### ...work in progress
