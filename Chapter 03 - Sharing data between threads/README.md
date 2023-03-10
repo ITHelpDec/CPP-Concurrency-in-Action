@@ -30,7 +30,7 @@ gitGraph
    commit id: "5"
 ```
 Whilst already covered in C++ High Performance's chapter on concurrency, it's worth remembering that some extra precautions are needed in order to modify objects / elements in a thread-safe manner.
-> _"The simplest pontential problem with modifying data that's shared between threads is that of broken invariants."_ – pg. 37
+> _"The simplest potential problem with modifying data that's shared between threads is that of broken invariants."_ – pg. 37
 
 #
 ### Race conditions (the dreaded undefined behaviour)
