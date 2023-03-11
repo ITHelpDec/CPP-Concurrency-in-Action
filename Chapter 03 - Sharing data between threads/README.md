@@ -52,5 +52,11 @@ I'll be honest, though - the example is a bit keek.
 
 Yes, we use a `std::mutex` and a `std::lock_guard`, but there's no concurrency (nor any need for it, for that matter, in this example) - I'm yet to test it, but my gut says you'd be better off writing the programme sequentially...
 
+>_", ...in the majority of cases it’s common to group the mutex and the protected data together in a class..."_ — pg. 42
+
+We must be mindful of member functions that return a pointer or a reference to our ptoected data, as well as making sure those functions dont pass pointers or references into other functions (in particular, functions supplied at runtime).
+
+>_"Any code that has access to that pointer or reference can now access (and potentially modify) the protected data without locking the mutex."_ — pg. 42
+
 #
 ### ...work in progress
