@@ -63,8 +63,19 @@ The author leaves us with some parting words on guidelines conducive to helping 
 
 #
 ### Race conditions
-The author uses `std::stack` as an example regarding functions that return references and how we might go about avoiding race conditions.
+The author uses `std::stack` as an example regarding functions that return references in the lead up to how we might go about avoiding race conditions.
 
-[stack_draft.h](stack_draft.h) | [stack_full.cpp](stack_full.cpp)
+[stack_draft.h](stack_draft.h)
+
+It is again, though, half-baked, with only declarations, and their call to...
+```cpp
+stack<int> s;
+```
+...on page 45 will not compile due to the lack of a default constructor.
+
+I've filled in the blanks with inspiration from the standard library and given an albeit basic, but more contextual response of the stack and its member functions in use (instead of a blank `main()` function with no definitions).
+
+[stack_full.cpp](stack_full.cpp)
+ 
 #
 ### ...work in progress
