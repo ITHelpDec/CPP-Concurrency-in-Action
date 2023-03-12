@@ -77,5 +77,20 @@ I've filled in the blanks with inspiration from the standard library and given a
 
 [stack_full.cpp](stack_full.cpp)
  
+Plenty of theory on race conditions - only real example on a less conspicuous issue would be like below.
+
+```mermaid
+sequenceDiagram
+    participant A as Thread A
+    participant B as Thread B
+    Note over A: `if (!s.empty())`
+    Note over B: `if (!s.empty())`
+    Note over A: `const int val = s.top()`
+    Note over B: `const int val = s.top()`
+    Note over A: `s.pop()`
+    Note over A, B: `do_something(value)`--------`s.pop()`
+    Note over B: `do_something(value)`
+```
+
 #
 ### ...work in progress
