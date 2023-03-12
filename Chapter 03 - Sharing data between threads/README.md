@@ -58,5 +58,8 @@ We must be mindful of member functions that return a pointer or a reference to o
 
 >_"Any code that has access to that pointer or reference can now access (and potentially modify) the protected data without locking the mutex."_ — pg. 42
 
+The author leaves us with some parting words on guidelines conducive to helping us steer clear from the pitfalls mentioned above:
+> _"Don’t pass pointers and references to protected data outside the scope of the lock, whether by returning them from a function, storing them in externally visible memory, or passing them as arguments to user-supplied functions."_ – pg. 43
+
 #
 ### ...work in progress
