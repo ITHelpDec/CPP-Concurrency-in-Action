@@ -62,4 +62,9 @@ The author leaves us with some parting words on guidelines conducive to helping 
 > _"Don’t pass pointers and references to protected data outside the scope of the lock, whether by returning them from a function, storing them in externally visible memory, or passing them as arguments to user-supplied functions."_ – pg. 43
 
 #
+### Race conditions
+The author uses `std::stack` as an example regarding functions that return references and how we might go about avoiding race conditions.
+
+[stack_draft.h](stack_draft.h) | [stack_full.cpp](stack_full.cpp)
+#
 ### ...work in progress
