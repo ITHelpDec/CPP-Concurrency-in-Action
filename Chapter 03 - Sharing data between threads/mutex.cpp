@@ -20,7 +20,8 @@ void add(int val) {
 }
 
 bool contains(int val) {
-    std::lock_guard guard(mtx);
+    // std::lock_guard guard(mtx);
+    std::scoped_lock guard(mtx); // introduced in C++17
     return std::find(ilist.begin(), ilist.end(), val) != ilist.end();
 }
 
