@@ -88,7 +88,7 @@ sequenceDiagram
     Note over A: `const int val = s.top()`
     Note over B: `const int val = s.top()`
     Note over A: `s.pop()`
-    Note over A, B: `do_something(value)`--------`s.pop()`
+    Note over A, B: `do_something(value)`--`s.pop()`
     Note over B: `do_something(value)`
 ```
 
@@ -108,11 +108,11 @@ std::is_nothrow_move_constructible<T>;
 3) Return a pointer to the popped item (again, after the last warnings? must be something unrelated)
 >_"The advantage here is that pointers can be freely copied without throwing an exception, ..."_ – pg. 48
 
-The author suggests using a `std::shared_ptr` for the purpose of avoiding memory leaks. Make me chuckle though, as there's a CPPCon talk [here](https://youtu.be/lkgszkPnV8g?t=1257) dedicated to whether or not `std::shared_prt` is thread-safe (great talk).
+The author suggests using a `std::shared_ptr` for the purpose of avoiding memory leaks. Made me chuckle though, as there's a CPPCon talk [here](https://youtu.be/lkgszkPnV8g?t=1257) dedicated to whether or not `std::shared_ptr<T>` is thread-safe (great talk).
 
-The author suggests choosing option 1 with either option 2 or 3, and includes an example of what a draft of how that might look (some tweaks made - may try define the declarations).
+The author suggests choosing option 1 with either option 2 or 3, and includes an example of what a draft of how that might look, as well as a fleshed-out version (I'll just include the fleshed-out version for now).
 
-[threadsafe_stack.h](threadsafe_stack.h)
+[threadsafe_stack.cpp](threadsafe_stack.cpp)
 
 #
 ### ...work in progress
