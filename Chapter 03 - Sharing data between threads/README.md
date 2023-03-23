@@ -117,4 +117,16 @@ I have made a few tweaks to get it to compile (another instance of half-baked co
 [threadsafe_stack.cpp](threadsafe_stack.cpp)
 
 #
+### Deadlocks
+> _"This is almost the opposite of a race condition: rather than two threads racing to be first, each one is waiting for the other, so neither makes any progress."_ - pg. 50
+
+Have to give it to the author - some great analogies involving kids fighting over a toy.
+
+> _"The common advice for avoiding deadlock is to always lock the two mutexes in the same order: if you always lock mutex A before mutex B, then you’ll never deadlock."_ – pg. 51
+
+We can also use `std::lock()` on the off-chance that we need to lock more than one mutex at once without risk of deadlock - I've demonstrated this before in [C++ High Performance](https://github.com/ITHelpDec/CPP-High-Performance/blob/2e61864d92c2981af90dfb536b6b318e18746e36/Chapter%2011%20-%20Concurrency/money_transfer.cpp#L15), but have included the exmaple from the book below.
+
+[lock.cpp](lock.cpp)
+
+#
 ### ...work in progress
