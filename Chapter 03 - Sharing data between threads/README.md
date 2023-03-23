@@ -112,6 +112,8 @@ The author suggests using a `std::shared_ptr` for the purpose of avoiding memory
 
 The author suggests choosing option 1 with either option 2 or 3, and includes an example of what a draft of how that might look, as well as a fleshed-out version (I'll just include the fleshed-out version for now).
 
+I have made a few tweaks to get it to compile (another instance of half-baked code, with the `what()` exception being only a function declaration), and have moved the class into its own namespace to tidy up how it's called during the `main()` function. At some point I'll have to benchmark the speed difference between running 100 pops / pushes on one thread compared to using the mutexes.
+
 [threadsafe_stack.cpp](threadsafe_stack.cpp)
 
 #
