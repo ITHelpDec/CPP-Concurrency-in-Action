@@ -128,5 +128,11 @@ We can also use `std::lock()` on the off-chance that we need to lock more than o
 
 [lock.cpp](lock.cpp)
 
+Bit of a weird architecture with this one (again, half-baked), using a friend as a public member, and a swap with calls itself explicitly instead of just swapping itself implicitly with `other`, e.g. ...
+```cpp
+lhs.swap(lhs, rhs); // seems strange
+lhs.swap(rhs); // a little better, but still weird
+```
+
 #
 ### ...work in progress
