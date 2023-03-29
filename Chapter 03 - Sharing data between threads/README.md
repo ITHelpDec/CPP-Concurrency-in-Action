@@ -133,6 +133,36 @@ Bit of a weird architecture with this one (again, half-baked), using a friend as
 lhs.swap(lhs, rhs); // seems strange
 lhs.swap(rhs); // a little better, but still weird
 ```
+`std::adopt_lcok` is an interesting argument as part of the `std::lock_guard` constructor that takes ownership of the already-locked mutex from `std::lock()` instead of attempting to lock the mutex on construction (apparently it helps protect against thrown exceptions - pg. 52).
+
+Also, as of C++17...
+
+https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/28605c59c0d391d85bba9718183388f4a5f64b8f/Chapter%2003%20-%20Sharing%20data%20between%20threads/lock.cpp#L21-L32
+
+...coudl be rewritten as...
+```cpp
+void swap(X &lhs, X &rhs)
+{
+    if (&lhs == &rhs) { return; }
+    
+    // std::lock(lhs.m, rhs.m);
+    // std::lock_guard<std::mutex> lock1(lhs.m, std::adopt_lock);
+    // std::lock_guard<std::mutex> lock2(rhs.m, std::adopt_lock);
+
+    std::scoped_lock guard(lhs.m, rhs.m);
+    
+    ::swap(lhs.some_detail_, rhs.some_detail_);
+ }
+```
+#
+### The golden rule of avoiding deadlocks
+> _"...; don’t wait for another thread if there’s a chance it’s waiting for you."_ – pg. 53
+
+* Avoid nested locks
+> _"don’t acquire a lock if you already hold one"_ – pg. 53
+* Avoid user-supplied code while holding a mutex
+* Acquire locks in a fixed order (e.g. one-way linked list vs bi-directional)
+* Use a lock heirarchy (divide the application into layers)
 
 #
 ### ...work in progress
