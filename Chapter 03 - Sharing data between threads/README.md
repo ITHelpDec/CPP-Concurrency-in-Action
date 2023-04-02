@@ -172,4 +172,10 @@ We can allow `hierarchical_mutex` to be used in `std::lock_guard<T>` by ensuring
 * `try_lock()` (mutex locked elsewhere? return `false`)
 
 #
+### Nota bene
+> _", ...deadlock doesn’t only occur with locks; it can occur with any synchronization construct that can lead to a wait cycle."_ – pg. 59
+
+It's a bad idea to wait for a thread while holding a lock (that thread might need to acquire the lock in order to proceed) – if you need to wait for a thread, try a hierarchy; a simple way to do this is to ensure your threads are joined in the same function that started them (pg. 59).
+
+#
 ### ...work in progress
