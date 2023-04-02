@@ -164,5 +164,12 @@ void swap(X &lhs, X &rhs)
 * Acquire locks in a fixed order (e.g. one-way linked list vs bi-directional)
 * Use a lock heirarchy (divide the application into layers)
 
+[hierarchical_mutex.cpp](hierarchical_mutex.cpp)
+
+We can allow `hierarchical_mutex` to be used in `std::lock_guard<T>` by ensuring it satisfies the three essential mutex members.
+* `lock()`
+* `unlock()`
+* `try_lock()` (mutex locked elsewhere? return `false`)
+
 #
 ### ...work in progress
