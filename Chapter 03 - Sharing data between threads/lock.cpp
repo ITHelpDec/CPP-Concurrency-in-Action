@@ -24,10 +24,6 @@ public:
         std::lock(lhs.m, rhs.m);
         std::lock_guard<std::mutex> lock1(lhs.m, std::adopt_lock);
         std::lock_guard<std::mutex> lock2(rhs.m, std::adopt_lock);
-        
-        // Non-const lvalue reference to type 'X' cannot bind to a value of unrelated type 'some_big_object'
-        // swap(lhs.some_detail_, rhs.some_detail_);
-        
         ::swap(lhs.some_detail_, rhs.some_detail_);
     }
     
