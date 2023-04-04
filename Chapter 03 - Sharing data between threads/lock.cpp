@@ -23,7 +23,7 @@ public:
         if (&lhs == &rhs) { return; }
         std::unique_lock<std::mutex> lock1(lhs.m, std::defer_lock);
         std::unique_lock<std::mutex> lock2(rhs.m, std::defer_lock);
-        std::lock(lhs.m, rhs.m);
+        std::lock(lock1, lock2);
         ::swap(lhs.some_detail_, rhs.some_detail_);
     }
     
