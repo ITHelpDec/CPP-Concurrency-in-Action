@@ -179,15 +179,13 @@ It's a bad idea to wait for a thread while holding a lock (that thread might nee
 
 #
 ### `std::unique_lock()`
-Described in the book as a kind of middleman object (don't lock the mutex, lock the `unique_lock`?), which might or might not own the mutex at that point in time.
+Described in the book as a kind of middleman object (don't lock the mutex, lock the lock!), which might or might not own the mutex at that point in time.
 
 Below we see a comparison between `std::lock_guard` and `std::unique_lock`, with a change of secondary arguments from `std::adopt_lock` to `std::defer_lock` (where `std::adopt_lock` locks the mutex on construction, `std::defer_lock` leaves the mutex unlocked on construction).
 
 | `std::lock_guard` | `std::unique_lock` |
 | --- | --- |
-| https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/4b3b92b3ea943a80a8c41b26ec36e43809c0acb4/Chapter%2003%20-%20Sharing%20data%20between%20threads/lock.cpp#L21-L28 | https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/fd7e9d96d99a9592cede23845f7ac428caaaf497/Chapter%2003%20-%20Sharing%20data%20between%20threads/lock.cpp#L21-L28 |
-
-Unfortunately, this code sample seems to experience a deadlock as a result of the change.
+| https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/4b3b92b3ea943a80a8c41b26ec36e43809c0acb4/Chapter%2003%20-%20Sharing%20data%20between%20threads/lock.cpp#L21-L28 | https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/16c00f650b04125fbf3f1f9acb8cca4dba441107/Chapter%2003%20-%20Sharing%20data%20between%20threads/lock.cpp#L21-L28 |
 
 #
 ### ...work in progress
