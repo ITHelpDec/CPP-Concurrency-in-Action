@@ -187,5 +187,12 @@ Below we see a comparison between `std::lock_guard` and `std::unique_lock`, with
 | --- | --- |
 | https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/4b3b92b3ea943a80a8c41b26ec36e43809c0acb4/Chapter%2003%20-%20Sharing%20data%20between%20threads/lock.cpp#L21-L28 | https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/16c00f650b04125fbf3f1f9acb8cca4dba441107/Chapter%2003%20-%20Sharing%20data%20between%20threads/lock.cpp#L21-L28 |
 
+**N.B.**
+> _"If the instance does own the mutex, the destructor must call unlock(), and if the instance does not own the mutex, it must not call unlock()."_ – pg. 60
+
+We can query the flag that that indicates whether the mutex is owned through the `owns_lock()` member function.
+
+The consensus from the book seems to be that unless you intend to transfer lock ownership, `std::scoped_lock` from C++17 seems to be the better shout.
+
 #
 ### ...work in progress
