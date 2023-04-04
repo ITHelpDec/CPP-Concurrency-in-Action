@@ -178,4 +178,16 @@ We can allow `hierarchical_mutex` to be used in `std::lock_guard<T>` by ensuring
 It's a bad idea to wait for a thread while holding a lock (that thread might need to acquire the lock in order to proceed) – if you need to wait for a thread, try a hierarchy; a simple way to do this is to ensure your threads are joined in the same function that started them (pg. 59).
 
 #
+### `std::unique_lock()`
+Described in the book as a kind of middleman object (don't lock the mutex, lock the `unique_lock`?), which might or might not own the mutex at that point in time.
+
+Below we see a comparison between `std::lock_guard` and `std::unique_lock`, with a change of secondary arguments from `std::adopt_lock` to `std::defer_lock` (where `std::adopt_lock` locks the mutex on construction, `std::defer_lock` leaves the mutex unlocked on construction).
+
+| `std::lock_guard` vs. ----> | `std::unique_lock` |
+| --- | --- |
+| https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/4b3b92b3ea943a80a8c41b26ec36e43809c0acb4/Chapter%2003%20-%20Sharing%20data%20between%20threads/lock.cpp#L21-L28 | https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/4b3b92b3ea943a80a8c41b26ec36e43809c0acb4/Chapter%2003%20-%20Sharing%20data%20between%20threads/lock.cpp#L21-L28 |
+
+Unfortunately, this code sample seems to experience a deadlock as a result of the change.
+
+#
 ### ...work in progress
