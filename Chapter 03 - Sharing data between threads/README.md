@@ -183,7 +183,7 @@ Described in the book as a kind of middleman object (don't lock the mutex, lock 
 
 Below we see a comparison between `std::lock_guard` and `std::unique_lock`, with a change of secondary arguments from `std::adopt_lock` to `std::defer_lock` (where `std::adopt_lock` locks the mutex on construction, `std::defer_lock` leaves the mutex unlocked on construction).
 
-| `std::lock_guard` vs. ----> | `std::unique_lock` |
+| `std::lock_guard` | `std::unique_lock` |
 | --- | --- |
 | https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/4b3b92b3ea943a80a8c41b26ec36e43809c0acb4/Chapter%2003%20-%20Sharing%20data%20between%20threads/lock.cpp#L21-L28 | https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/4b3b92b3ea943a80a8c41b26ec36e43809c0acb4/Chapter%2003%20-%20Sharing%20data%20between%20threads/lock.cpp#L21-L28 |
 
