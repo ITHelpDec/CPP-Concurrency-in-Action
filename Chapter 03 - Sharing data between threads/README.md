@@ -185,7 +185,7 @@ Below we see a comparison between `std::lock_guard` and `std::unique_lock`, with
 
 | `std::lock_guard` | `std::unique_lock` |
 | --- | --- |
-| https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/4b3b92b3ea943a80a8c41b26ec36e43809c0acb4/Chapter%2003%20-%20Sharing%20data%20between%20threads/lock.cpp#L21-L28 | https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/4b3b92b3ea943a80a8c41b26ec36e43809c0acb4/Chapter%2003%20-%20Sharing%20data%20between%20threads/lock.cpp#L21-L28 |
+| https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/4b3b92b3ea943a80a8c41b26ec36e43809c0acb4/Chapter%2003%20-%20Sharing%20data%20between%20threads/lock.cpp#L21-L28 | https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/fd7e9d96d99a9592cede23845f7ac428caaaf497/Chapter%2003%20-%20Sharing%20data%20between%20threads/lock.cpp#L21-L28 |
 
 Unfortunately, this code sample seems to experience a deadlock as a result of the change.
 
