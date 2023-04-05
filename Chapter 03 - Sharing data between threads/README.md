@@ -194,5 +194,21 @@ We can query the flag that that indicates whether the mutex is owned through the
 
 The consensus from the book seems to be that unless you intend to transfer lock ownership, `std::scoped_lock` from C++17 seems to be the better shout.
 
+It's also worth noting that we should explicitly call `std::move` when passing real values / references (i.e. lvalues) to `std::unique_lock` (rvalues are spoken for) in order to take advantage of move semantics.
+
+> _"; ...holding a lock for longer than required can cause a drop in performance, because other threads waiting for the lock are prevented from proceed- ing for longer than necessary."_ – pg. 61
+
+#
+### Lock granularity
+> _": ...the lock granularity is a hand-waving term to describe the amount of data protected by a single lock.<br/>A fine-grained lock protects a small amount of data, and a coarse-grained lock protects a large amount of data."_ – pg. 62
+
+#
+### Try not to do file I/O while holding a lock
+> _"File I/O is typically hundreds (if not thousands) of times slower than reading or writing the same volume of data from memory."_ – pg. 62
+
+`std::unique_lock` seems to be very useful for instances where locking the mutex isn't required for the entirety of the function - just when we need to interact with a shared resource (with `.lock()` / `.unlock()`).
+
+Don't be that person that holds up the shopping queue at Tesco's...
+
 #
 ### ...work in progress
