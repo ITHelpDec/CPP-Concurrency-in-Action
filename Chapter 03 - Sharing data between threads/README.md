@@ -270,10 +270,30 @@ void woof() {
 It is possible, however, to make this thread-safe:
 
 [ts_lazy.cpp](ts_lazy.cpp)
-   
+
 This check can also be nested within yet _another_ `if (!resource_ptr)` in a technique called _"double-checking"_, but it is infamous for race conditions - for this very reason the C++ Standard released `std::once_flag` and `std::call_once` to cover this scenario (it also has less overhead than a mutex!).
-   
+
 [call_once.cpp](call_once.cpp)
+
+# Half-baked
+Another example from the author that isn't fully-functional, but some syntactical things to highlight when calling `std::call_once` with classes (we covered this syntax in a previous chapter when working with threads):
+```cpp
+// std::call_once(<#once_flag &flag#>, <#Callable &&func#>, <#Args &&args...#>);
+std::call_once(connection_init_flag, &X::open_connection, this);
+```
+#
+### Static race
+Pre-C++11, race conditions when initialising local static members were problematic (the YouTube "first post!!!" equivalent of multithreading), but this has been addressed as of C++11:
+
+```cpp
+class myClass { /*...*/ };
+
+myClass& get_instance()
+{
+    static myClass instance;
+    return instance;
+}
+```
 
 #
 ### ...work in progress
