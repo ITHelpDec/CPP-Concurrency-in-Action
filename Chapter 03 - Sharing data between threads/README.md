@@ -249,4 +249,27 @@ The key takeaway here is...
 > _"if you don’t hold the required locks for the entire duration of an operation, you’re exposing yourself to race conditions"_ – pg. 64
 
 #
+### Initialisation
+> _"..., locking a mutex after the data has been initialised, purely in order to protect the initialisation, is unnecessary and a needless hit to performance"_ – pg. 64
+
+Below is a naïve lazy evaluation seen in single-threaded applications:
+
+<details>
+<summary>Lazy evaluation (naïve)</summary>
+
+```cpp
+std::shared_ptr<T> resource_ptr;
+
+void woof() {
+    if (!resource_ptr) { resource_ptr.reset(new T); }
+    resource_ptr->do_something();
+}
+```
+</details>
+
+It is possible, however, to make this thread-safe:
+
+[ts_lazy.cpp](ts_lazy.cpp)
+
+#
 ### ...work in progress
