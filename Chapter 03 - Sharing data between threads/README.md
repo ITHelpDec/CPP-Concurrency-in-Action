@@ -270,6 +270,10 @@ void woof() {
 It is possible, however, to make this thread-safe:
 
 [ts_lazy.cpp](ts_lazy.cpp)
+   
+This check can also be nested within yet _another_ `if (!resource_ptr)` in a technique called _"double-checking"_, but it is infamous for race conditions - for this very reason the C++ Standard released `std::once_flag` and `std::call_once` to cover this scenario (it also has less overhead than a mutex!).
+   
+[call_once.cpp](call_once.cpp)
 
 #
 ### ...work in progress
