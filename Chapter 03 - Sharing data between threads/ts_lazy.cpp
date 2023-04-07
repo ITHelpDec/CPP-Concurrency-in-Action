@@ -11,7 +11,9 @@ void init() {
     if (!shared_int) {
         // shared_int.reset(new int(100));
         
-        // opt for assignment over raw `new` call
+        // worth opting for assignment over raw `new` call for efficiency and exception safety reasons
+        // EDIT: in hindsight, it seems there may be subtle differences between .reset() and operator=
+        // https://stackoverflow.com/a/31439356 for more info
         shared_int = std::make_shared<int>(100);
     }
     
