@@ -19,4 +19,19 @@ Another way is to send the thread to sleep for set intervals between the checks 
 
 [sleep.cpp](sleep.cpp)
 
+A more idiomatic approach, however, would be to use a "condition variable" - threads can then notify one or multiple other threads waiting on this condition variable to be true before continuing on with their work.
+
+#
+### Condition variables
+We have two on offer:
+* `std::conditioin_variable` (uses a `std::mutex` - preferred)
+* `std::condition_variable_any` (use anything that fulfills `std::mutex` criteria, but is a little more resource heavy as a result of the flexibilty).
+
+The next example is the worst example out of the whole book so far...it shows one function with `std::lock_guard` and `notify_one()`, and another with `std::unique_lock` and `wait()` with a lambda.
+
+I'll be honest - it's shit; it shit and it's lazy (even the expanded [source file](https://github.com/anthonywilliams/ccia_code_samples/blob/6e7ae1d66dbd2e8f1ad18a5cf5c6d25a37b92388/listings/listing_4.1.cpp) is lazy).
+
+[condition_variable.cpp](condition_variable.cpp)
+
+#
 ### ...work in progress
