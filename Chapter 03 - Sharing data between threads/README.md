@@ -275,7 +275,8 @@ This check can also be nested within yet _another_ `if (!resource_ptr)` in a tec
 
 [call_once.cpp](call_once.cpp)
 
-# Half-baked
+#
+### Half-baked
 Another example from the author that isn't fully-functional, but some syntactical things to highlight when calling `std::call_once` with classes (we covered this syntax in a previous chapter when working with threads):
 ```cpp
 // std::call_once(<#once_flag &flag#>, <#Callable &&func#>, <#Args &&args...#>);
@@ -316,4 +317,22 @@ Below is an adaptation of how a DNS cache might look from the book's example.
 [dns_cache.cpp](dns_cache.cpp)
 
 #
-### ...work in progress
+### Recursive locking
+> _"
+With std::mutex, it’s an error for a thread to try to lock a mutex it already owns, and attempting to do so will result in undefined behaviour."_ – pg. 70
+
+C++ does have `std::recursive_lock<T>` for the far-and-few-between times you might want to recursively lock a mutex - just remember, for as many times you call `.lock()`, you must also call `.unlock()` before the mutex can be locked by another thread.
+
+It's a bit of a quick and dirty solution, though, and ideally you would reconsider the design of your programme.
+   
+> _"It’s usually better to extract a new private member function that’s called from both member functions, which does not lock the mutex (it expects it to already be locked)."_ – pg. 70
+
+#
+### Summary
+Quite an interesting and comprehensive chapter on locks and mutexes!
+
+It felt a bit fluffy in the middle, with a lot of theory and not so much effective practical work (again, the examples are super lacklustre and feel like they're ticking a box instead of driving a concept home), but there were some very interesting concepts like the shared mutexes and `std::once_flag`'s that had a bit more substance.
+
+There were also plenty of good quotes and gotchas to watch out for, but my personal feeling is that "let's see what happens if..." examples are more effective learning tools that simply listing "Donny Do's / Don't's".
+
+I'm looking forward to the next chapter that will touch on more resource-friendly ways for a thread to wait for user input (instead of throwing repeated exceptions) and how to synchronise operations across multiple threads.
