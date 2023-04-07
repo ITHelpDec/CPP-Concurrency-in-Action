@@ -296,4 +296,24 @@ myClass& get_instance()
 ```
 
 #
+### Protecting rarely-updated data structures
+Below we take advantage of a new _reader / writer_ kind of mutex on the likes of a DNS table because it allows for two different kinds of usage:
+* exclusive access by a single "writer" thread, or
+* shared and concurrent access by multiple "reader" threads
+
+We have two mutexes on offer to us in current modern C++:
+* `std::shared_mutex` (C++17)
+* `std::shared_timed_mutex` (C++14)
+
+We can then alternate between the likes of `std::lock_guard` / `std::unique_lock` for exclusive access (writing) and `std::shared_lock` for shared access (reading).
+
+Things to bear in mind:
+* You have an exclusive lock? No shared lock for you!
+* You have a shared lock? No exclusive lock for you! (but you _can_ have a shared lock 😀).
+
+Below is an adaptation of how a DNS cache might look from the book's example.
+
+[dns_cache.cpp](dns_cache.cpp)
+
+#
 ### ...work in progress
