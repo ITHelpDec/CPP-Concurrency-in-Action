@@ -36,5 +36,11 @@ You'd be better off looking at the explanation on [cppreference](https://en.cppr
 
 > _"This is why you need the std::unique_lock rather than the std::lock_guard — the waiting thread must unlock the mutex while it’s waiting and lock it again afterward, and std::lock_guard doesn’t provide that flexibility."_ – pg. 76
 
+The term "spurious wake" was used at least once in C++ High Performance, and Concurrency in Action was referenced for learning more about this term - below is our first encounter of this term (relating to the most recent piece of code from the author).
+
+> _"When the waiting thread reacquires the mutex and checks the condition, if it isn’t in direct response to a notification from another thread, it’s called a spurious wake"_ – pg. 76
+
+As mentioned earlier in this book, holding a mutex for longer than needed is less than ideal - the author recommends using a queue to transfer data between threads ("done well, ...\[it\] greatly reduces the possible number of synchronisation issues and race conditions.").
+
 #
 ### ...work in progress
