@@ -34,5 +34,7 @@ You'd be better off looking at the explanation on [cppreference](https://en.cppr
 
 [condition_variable.cpp](condition_variable.cpp) | [cppref_cv.cpp](cppref_cv.cpp)
 
+> _"This is why you need the std::unique_lock rather than the std::lock_guard — the waiting thread must unlock the mutex while it’s waiting and lock it again afterward, and std::lock_guard doesn’t provide that flexibility."_ – pg. 76
+
 #
 ### ...work in progress
