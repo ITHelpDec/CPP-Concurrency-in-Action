@@ -77,5 +77,9 @@ There are allllso experimental versions of these futures (experimental in syntax
 
 [future.cpp](future.cpp)
 
+We also learn a bit more about `std::async`, althoguh the layout to listing 4.7 in the book is keek - global variables everywhere and no structure, so have tweaked and attached below.
+
+[async.cpp](async.cpp)
+
 #
 ### ...work in progress
