@@ -48,5 +48,10 @@ Starting with the standard library, and progressing to a thread-safe version.
 
 [std_queue.cpp](std_queue.cpp) | [ts_queue_draft.cpp](ts_queue_draft.cpp) | [ts_queue_full.cpp](ts_queue_full.cpp)
 
+Some useful takeaways from this exercise were:
+* how to build a class with allocators (like we did with `ts::stack`)
+* the use of `this` within a `std::condition_variable::wait` capture list when dealing with classes
+* lambda notation over function pointers / casting to avoid member-function overload ambiguity when using threads
+
 #
 ### ...work in progress
