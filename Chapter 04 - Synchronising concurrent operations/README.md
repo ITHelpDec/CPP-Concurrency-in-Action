@@ -67,5 +67,15 @@ We have two instances of futures:
 
 There are also `void` specialisations that should be used when there's no associated data (`std::future<void>` / `std::shared_future<void>`).
 
+There are allllso experimental versions of these futures (experimental in syntax and semantics, as they might appear differently in an upcoming release, rather than the quality of code).
+
+#
+### Returnign results from background tasks
+`std::thread` doesn't do this, but we can call on `std::async` to help call an asychronous task for which we don't need the result right away.
+
+`std::async` returns a `std::future - _when you need the value, you just call `.get()` on the `std::future`, and the thread blocks until the future is ready and then returns the value._
+
+[future.cpp](future.cpp)
+
 #
 ### ...work in progress
