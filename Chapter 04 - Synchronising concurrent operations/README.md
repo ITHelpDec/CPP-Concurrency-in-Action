@@ -46,7 +46,7 @@ As mentioned earlier in this book, holding a mutex for longer than needed is les
 ### Building a thread-safe queue
 Starting with the standard library, and progressing to a thread-safe version.
 
-[std::queue.cpp](std::queue.cpp) | [ts::queue.cpp](ts::queue.cpp)
+[std_queue.cpp](std_queue.cpp) | [ts_queue.cpp](ts_queue.cpp)
 
 #
 ### ...work in progress
