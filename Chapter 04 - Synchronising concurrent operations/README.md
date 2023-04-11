@@ -43,4 +43,10 @@ The term "spurious wake" was used at least once in C++ High Performance, and Con
 As mentioned earlier in this book, holding a mutex for longer than needed is less than ideal - the author recommends using a queue to transfer data between threads ("done well, ...\[it\] greatly reduces the possible number of synchronisation issues and race conditions.").
 
 #
+### Building a thread-safe queue
+Starting with the standard library, and progressing to a thread-safe version.
+
+[std::queue.cpp](std::queue.cpp) | [ts::queue.cpp](ts::queue.cpp)
+
+#
 ### ...work in progress
