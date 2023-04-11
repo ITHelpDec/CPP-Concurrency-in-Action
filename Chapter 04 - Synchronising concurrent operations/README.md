@@ -57,6 +57,15 @@ A suggestion from the author is that if the waiting thread is going to wait only
 
 #
 ### `std::future`
+The examples might be undercooked, but the analogies are solid; this time round the author compares `std::future` to waiting on your flight to Tenerife - the only thing you're waiting for is the announcement to say your flight is boarding at gate 34A (and that flight will only happen once, you can't really miss it).
+
+> _"Once an event has happened (and the future has become ready), the future can’t be reset."_ – pg. 81
+
+We have two instances of futures:
+* `std::future<T>` (unique futures - modelled off of `std::unique_ptr<T>)
+* `std::shared_future<T>` (shared futures - modelled off of `std::shared_ptr<T>)
+
+There are also `void` specialisations that should be used when there's no associated data (`std::future<void>` / `std::shared_future<void>`).
 
 #
 ### ...work in progress
