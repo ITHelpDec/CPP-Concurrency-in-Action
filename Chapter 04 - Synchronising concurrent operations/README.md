@@ -53,5 +53,10 @@ Some useful takeaways from this exercise were:
 * the use of `this` within a `std::condition_variable::wait` capture list when dealing with classes
 * lambda notation over function pointers / casting to avoid member-function overload ambiguity when using threads
 
+A suggestion from the author is that if the waiting thread is going to wait only once for a condition to return `true` (i.e. a one-off), then a `std::condition_variable` might not be the best tool for the job - `std::future` might be more appropriate.
+
+#
+### `std::future`
+
 #
 ### ...work in progress
