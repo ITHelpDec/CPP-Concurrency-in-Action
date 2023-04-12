@@ -80,6 +80,11 @@ There are allllso experimental versions of these futures (experimental in syntax
 We also learn a bit more about `std::async`, although the layout to listing 4.7 in the book is keek - global variables everywhere and no structure, so have tweaked and attached below.
 
 [async.cpp](async.cpp)
+#
+### `std::packaged_task<T>`
+More half-basked examples - you'd be better off looking at use of `std::packaged_task` from C++ High Performance ([here](https://github.com/ITHelpDec/CPP-High-Performance/blob/2e61864d92c2981af90dfb536b6b318e18746e36/Chapter%2011%20-%20Concurrency/task.cpp)), or from cppreference ([here](https://en.cppreference.com/w/cpp/thread/packaged_task)).
+
+[half_packaged_task.cpp](half_packaged_task.cpp)
 
 #
 ### ...work in progress
