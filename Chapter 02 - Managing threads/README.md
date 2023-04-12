@@ -188,3 +188,7 @@ Examples-wise, it seems a bit silly to jump straight into parallel algorithms wi
 The allergy to whitespace has also increased from the last book I read - that, combined with the layout / spacing / font weight/serif, makes this book feel a little more challenging to read than it needs to be...a little bit of reserach into font choice and legibility / redability would go a long way.
 
 ...but hey! Maybe that's just me! I'd like to hear you thoughts.
+#
+### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
+
+<a href="https://www.buymeacoffee.com/ITHelpDec"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=ITHelpDec&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" /></a>
