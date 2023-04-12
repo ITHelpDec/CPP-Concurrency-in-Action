@@ -70,16 +70,20 @@ There are also `void` specialisations that should be used when there's no associ
 There are allllso experimental versions of these futures (experimental in syntax and semantics, as they might appear differently in an upcoming release, rather than the quality of code).
 
 #
-### Returnign results from background tasks
+### Returning results from background tasks
 `std::thread` doesn't do this, but we can call on `std::async` to help call an asychronous task for which we don't need the result right away.
 
 `std::async` returns a `std::future - _when you need the value, you just call `.get()` on the `std::future`, and the thread blocks until the future is ready and then returns the value._
 
 [future.cpp](future.cpp)
 
-We also learn a bit more about `std::async`, althoguh the layout to listing 4.7 in the book is keek - global variables everywhere and no structure, so have tweaked and attached below.
+We also learn a bit more about `std::async`, although the layout to listing 4.7 in the book is keek - global variables everywhere and no structure, so have tweaked and attached below.
 
 [async.cpp](async.cpp)
 
 #
 ### ...work in progress
+#
+### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
+
+<a href="https://www.buymeacoffee.com/ITHelpDec"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=ITHelpDec&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" /></a>
