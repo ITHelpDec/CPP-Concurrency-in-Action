@@ -336,3 +336,7 @@ It felt a bit fluffy in the middle, with a lot of theory and not so much effecti
 There were also plenty of good quotes and gotchas to watch out for, but my personal feeling is that "let's see what happens if..." examples are more effective learning tools that simply listing "Donny Do's / Don't's".
 
 I'm looking forward to the next chapter that will touch on more resource-friendly ways for a thread to wait for user input (instead of throwing repeated exceptions) and how to synchronise operations across multiple threads.
+#
+### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
+
+<a href="https://www.buymeacoffee.com/ITHelpDec"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=ITHelpDec&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" /></a>
