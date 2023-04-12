@@ -86,6 +86,10 @@ More half-basked examples - you'd be better off looking at use of `std::packaged
 
 [half_packaged_task.cpp](half_packaged_task.cpp)
 
+> _"What about those tasks that can’t be expressed as a simple function call or those tasks where the result may come from more than one place?"_ – pg. 87
+
+Introducing - `std::promise`
+
 #
 ### ...work in progress
 #
