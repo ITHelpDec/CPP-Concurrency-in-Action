@@ -82,13 +82,19 @@ We also learn a bit more about `std::async`, although the layout to listing 4.7 
 [async.cpp](async.cpp)
 #
 ### `std::packaged_task<T>`
-More half-basked examples - you'd be better off looking at use of `std::packaged_task` from C++ High Performance ([here](https://github.com/ITHelpDec/CPP-High-Performance/blob/2e61864d92c2981af90dfb536b6b318e18746e36/Chapter%2011%20-%20Concurrency/task.cpp)), or from cppreference ([here](https://en.cppreference.com/w/cpp/thread/packaged_task)).
+More half-baked examples - you'd be better off looking at use of `std::packaged_task` from C++ High Performance ([here](https://github.com/ITHelpDec/CPP-High-Performance/blob/2e61864d92c2981af90dfb536b6b318e18746e36/Chapter%2011%20-%20Concurrency/task.cpp)), or from cppreference ([here](https://en.cppreference.com/w/cpp/thread/packaged_task)).
 
 [half_packaged_task.cpp](half_packaged_task.cpp)
 
-> _"What about those tasks that can’t be expressed as a simple function call or those tasks where the result may come from more than one place?"_ – pg. 87
+> _"What about those tasks that can’t be expressed as a simple function call or those tasks where the result may come from more than one place?..."_ – pg. 87
 
-Introducing - `std::promise`
+#
+### Introducing - `std::promise`
+I've had a look at promises towards the [latter chapters of in C++ High Performance](https://github.com/ITHelpDec/CPP-High-Performance/search?q=promise), but a similar example of their use and benefit is provided in regards to an application that handles multiple connections - threads are finite and resource-heavy, so the author says it's commonplace for typically one thread to be in charge of connections, taking advantage of `promise / future` pairs to handle the connections.
+
+Predictably, this is demonstrated with more pseudo-code.
+
+[pseudo_promise.cpp](psuedo_promise.cpp)
 
 #
 ### ...work in progress
