@@ -96,6 +96,8 @@ Predictably, this is demonstrated with more pseudo-code.
 
 [pseudo_promise.cpp](psuedo_promise.cpp)
 
+> _"`std::promise<T>` provides a means of setting a value (of type T) that can later be read through an associated `std::future<T>` object"_ – pg. 87
+
 #
 ### ...work in progress
 #
