@@ -98,6 +98,40 @@ Predictably, this is demonstrated with more pseudo-code.
 
 > _"`std::promise<T>` provides a means of setting a value (of type T) that can later be read through an associated `std::future<T>` object"_ – pg. 87
 
+I think a better introductory code sample to `std::promise` would be something like that found on [cplusplus.com](https://cplusplus.com/reference/future/promise/), although it appears to be a little different than most of the other examples that call `std::move` on the future instead of passing by reference...
+
+<details>
+
+<summary><b><code>std::promise</code></b> <i>(click to expand / collapse)</i></summary>
+
+```c++
+#include <future>
+#include <iostream>
+
+void print_int(std::future<int> &fut) {
+    int x = fut.get();
+    std::cout << "value: " << x << '\n';
+}
+
+int main()
+{
+    std::promise<int> p;                        // create a promise
+    
+    std::future<int> fut = p.get_future();      // assign future from promise
+    
+    std::thread t(print_int, std::ref(fut));    // send future to a new thread
+    
+    p.set_value(69);                            // fulfill promise (syncs with getting future)
+    
+    t.join();                                   // join back up to main()
+    
+    return 0;
+}
+
+```
+
+</details>
+
 #
 ### ...work in progress
 #
