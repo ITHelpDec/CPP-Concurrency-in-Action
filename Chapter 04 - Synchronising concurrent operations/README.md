@@ -133,6 +133,31 @@ int main()
 </details>
 
 #
+### Exceptions
+> _"...[if the function call invoked as part of `std::async` throws an exception], <b>that exception is stored in the `std::future` in place of a stored value.</b>"_ – pg. 89
+
+The same thing applies to `std::packaged_task` and `std::promise`, just with `std::promise` we would need to call `.set_exception()` as part of a `try {..} catch {...}` block instead of `.set_value()` - e.g. ...
+
+```c++
+std::promise<int> p;
+
+try {
+    p.set_value(69);
+} catch (...) {
+    p.set_exception(std::current_exception());
+}
+```
+...but you can also use...
+```c++
+p.set_exception(std::make_exception_ptr(std::logic_error("woof woof")));
+```
+...if you know the exception ahead of time to store the exception directly instead of throwing, which is, arguably, a little cleaner than using a try / catch (it also appears to provide the compiler with a greater opportunity to optimise the code further down the line).
+
+If we destroy the `std::promise` or `std::packaged_task` associated with a `std::future` before it is "ready" then you will store a `std::future_error` exception with the error code `std::future_error::broken_promise.
+
+> _"...by creating a future, you make a promise to provide a value or exception, and by destroying the source of that value or exception without providing one, you break that promise."_ – pg. 90
+
+#
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
