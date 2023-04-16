@@ -165,6 +165,40 @@ If we destroy the `std::promise` or `std::packaged_task` associated with a `std:
 
 This is by design (models unique ownership / after the first call to `.get()` there is no value left to retrieve), but where `std::future` instances are only <ins>_moveable_</ins>, `std::shared_future` instances are <ins>_copyable_</ins> 😊
 
+The preferred way to use `std::shared_future` is to pass a copy to each thread - it is also recommended to remember to protect multiple accesses to a single object with locks to avoid data races.
+
+We can transfer ownership of a `std::future` to a `std::shared_future` with `std::move`:
+<details open>
+<summary><b>Transferring ownership</b> <i>(click to collapse / expand)</i></summary>
+
+```c++
+#include <future>
+
+int main()
+{
+    std::promise<int> p;
+    std::future<int> fut = p.get_future();
+    
+    assert(fut.valid());
+    
+    std::shared_future<int> sf = std::move(fut);
+    
+    // or, implicit construction from an rvalue
+    // std::shared_future<int> sf(p.get_future()); 
+    
+    assert(!fut.valid());
+    assert(sf.valid());
+    
+    return 0;
+}
+```
+</details>
+
+As a side note, from a degbugging point of view, `assert` seems to be more useful than I originally thought, providing syslog-like messages (function, file, line, etc., ...) without having to construct them manually:
+```powershell
+Assertion failed: (!sf.valid()), function main, file main.cpp, line 248.
+```
+
 #
 ### ...work in progress
 #
