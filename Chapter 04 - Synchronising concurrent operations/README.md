@@ -158,6 +158,14 @@ If we destroy the `std::promise` or `std::packaged_task` associated with a `std:
 > _"...by creating a future, you make a promise to provide a value or exception, and by destroying the source of that value or exception without providing one, you break that promise."_ – pg. 90
 
 #
+### `std::shared_future`
+`std::future` has its limitations e.g. only one thread can wait for the result - this is where a `std::shared_future` kicks in.
+
+> _"If you access a single `std::future¦ object from multiple threads without additional synchronisation, you have a data race and undefined behavior."_ – pg. 90
+
+This is by design (models unique ownership / after the first call to `.get()` there is no value left to retrieve), but where `std::future` instances are only <ins>_moveable_</ins>, `std::shared_future` instances are <ins>_copyable_</ins> 😊
+
+#
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
