@@ -200,6 +200,29 @@ Assertion failed: (!sf.valid()), function main, file main.cpp, line 248.
 ```
 
 #
+### Clocks and ting
+Some interesting tidbits on `std::chrono` that may be useful for reference down the line.
+<details open>
+<summary><b><code>std::chrono::literals</code></b> <i>(click to collapse / expand)</i></summary>
+
+```c++
+// author should really include some kind of header for this to work, e.g. <chrono> or <iostream>
+using namespace std::chrono_literals;
+
+auto one_day = 24h;
+auto half_an_hour = 30min;
+auto max_time_between_messages = 30ms;
+```
+</details>
+
+> _"Duration-based waits are done with `std::chrono::duration`"_ – pg. 95
+
+Wait function responses (measured using a `std::chrono::steady_clock`):
+* `std::future_status::timeout`
+* `std::future_status::ready`
+* `std::future_status::deferred`
+
+#
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
