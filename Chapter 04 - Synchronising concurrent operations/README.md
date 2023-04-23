@@ -304,6 +304,10 @@ The nice thing about `std::async` is that, unless specified with `std::launch::a
 
 If we wanted to "pave the way...to a more sophisticated implementation that adds the task to a queue to be run by a pool of worker threads", then we could opt for using a `std::packaged_task` instead - maybe a bit overkill for this algorithm, but a technique that we'll cover with thread pools in later chapters.
 
+There were some issues with the `std::packaged_task` example (I have raised a pull request for anyone interesting in seeing it) the main thing being deprecations, but it also didn't run, so it needed to be corrected.
+
+[packaged_task.cpp](packaged_task.cpp)
+
 #
 ### ...work in progress
 #
