@@ -296,6 +296,14 @@ I've included an example of it alongside the original `qsort()` from C above (wh
 https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/7c7289b28cf32482365b97d8c59683d21465abb1/Chapter%2004%20-%20Synchronising%20concurrent%20operations/quick_sort.cpp#L119-L190
 </details>
 
+The author then goes on to provide a parallel version of this quick_sort by modifying one line to return a `std::future<std::list<T>>` with `std::async`.
+
+The nice thing about `std::async` is that, unless specified with `std::launch::async` / `std::launch::deferred`, it will only use up to as many threads as `std::thread::hardware_concurrency()` will allow before becoming sequential, which is one less thing to think about - clever!
+
+[quicker_sort.cpp](quicker_sort.cpp)
+
+If we wanted to "pave the way...to a more sophisticated implementation that adds the task to a queue to be run by a pool of worker threads", then we could opt for using a `std::packaged_task` instead - maybe a bit overkill for this algorithm, but a technique that we'll cover with thread pools in later chapters.
+
 #
 ### ...work in progress
 #
