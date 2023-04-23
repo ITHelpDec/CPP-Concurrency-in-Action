@@ -222,6 +222,80 @@ Wait function responses (measured using a `std::chrono::steady_clock`):
 * `std::future_status::ready`
 * `std::future_status::deferred`
 
+I've done a bunch of `std::chrono` stuff when benchmarking - check out my [leetcode](https://github.com/ITHelpDec/Leetcode) repo if you want to see more examples.
+
+#
+### Best practices...
+...for waiting on a condition variable.
+
+[waiting.cpp](waiting.cpp)
+
+> _"If you use `.wait_for()` in a loop, you might end up waiting almost the full length of time before a spurious wake- up, ..."_ – pg. 97
+
+I knew there was a `std::thread::sleep_for(T)`, but I didn't know there was a `std::thread::sleep_until(T)`!
+
+#
+### Timed mutexes
+`std::mutex` and `std::recursive_mutex` don't accept timeouts on locking, _but `std::timed_mutex` and `std::recursive_timed_mutex` do!_
+
+#
+### Synchronisation
+> _"Rather than sharing data directly between threads, each task can be provided with the data it needs, and the result can be disseminated to any other threads that need it through the use of futures."_ – pg. 99
+
+#
+### Functional programming
+> _"functional programming (FP) refers to a style of programming where the result of a function call depends solely on the parameters to that function and doesn’t depend on any external state"_ – pg. 99
+
+> _"A pure function doesn’t modify any external state either; the effects of the function are entirely limited to the return value."_ - pg. 100
+
+This kind of function helps massively with concurrency, _as if there are no modifications to shared data, then there can be no race conditions_.
+
+#
+### The power of now (in the future)
+...or future, in the now?
+
+> _"a future can be passed around between threads to allow the result of one computation to depend on the result of another, **without any explicit access to shared data**."_ - pg. 100
+
+#
+### Quicksort
+
+<details open>
+<summary><b><code>qsort()</code></b> <i>(click to collapse / expand)</i></summary>
+
+```c++
+int cmp(const void *lhs, const void *rhs) {
+    return *(int*)lhs - *(int*)rhs;
+}
+
+int main()
+{
+    std::vector<int> ivec = { 5, 3, 6, 8, 5, 4, 3 };
+    
+    qsort(&ivec[0], ivec.size(), sizeof(decltype(ivec)::value_type), cmp);
+    
+    return 0;
+}
+```
+</details>
+
+For the next section we discuss the quicksort algorithm.
+
+The author provides a really helpful diagram of how an instance of quicksort might look - they make use of a very interesting member function (`.splice()`) that I haven't come across before.
+
+> _"Transfers elements from one list to another."</br>
+"No elements are copied or moved, only the internal pointers of the list nodes are re-pointed."_</br>
+https://en.cppreference.com/w/cpp/container/list/splice
+
+I've included an example of it alongside the original `qsort()` from C above (which is apparently much slower than `std::sort`), but I've also tweaked the author's function to give a better visual representation of which layer of the recursion we are in.
+
+[quick_sort.cpp](quick_sort.cpp)
+
+<details open>
+<summary><b>"<code>std::quick_sort</code>" output</b> <i>(click to collapse / expand)</i></summary>
+
+https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/7c7289b28cf32482365b97d8c59683d21465abb1/Chapter%2004%20-%20Synchronising%20concurrent%20operations/quick_sort.cpp#L119-L190
+</details>
+
 #
 ### ...work in progress
 #
