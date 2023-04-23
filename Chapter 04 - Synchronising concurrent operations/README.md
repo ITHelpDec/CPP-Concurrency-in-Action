@@ -306,6 +306,8 @@ If we wanted to "pave the way...to a more sophisticated implementation that adds
 
 There were some issues with the `std::packaged_task` example (I have raised a pull request for anyone interesting in seeing it) the main thing being deprecations, but it also didn't run, so it needed to be corrected.
 
+I also made the example variadic.
+
 [packaged_task.cpp](packaged_task.cpp)
 
 #
