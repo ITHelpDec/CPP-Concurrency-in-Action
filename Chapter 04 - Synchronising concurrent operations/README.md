@@ -311,6 +311,15 @@ I also made the example variadic.
 [packaged_task.cpp](packaged_task.cpp)
 
 #
+### CSP / MPI / CAF
+All the abbreviations.
+* Consecutive Sequential Passing
+* Message Passing Interface
+* C++ Actor Framework
+
+This style of programme design used in the next overly-simplified example to add to the list is called the Actor model - the key being that in this state machine, there are no shared states - only that which is directly passed via messages.
+
+#
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
