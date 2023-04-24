@@ -323,7 +323,18 @@ This style of programme design used in the next overly-simplified example to add
 ### Continuations
 > _"When the data is ready, then do this processing"_ – pg. 109
 
-This form of technique is available as part of the `<experimental>` library, although it looks like the consensus is more towards the introduction of executors over `std::experimental::future::then` due to superior performance.
+This form of technique is available as part of the `<experimental>` library, although [it looks like the consensus is more towards the introduction of executors](https://stackoverflow.com/a/63360383) over `std::experimental::future::then` due to superior performance.
+
+> _"...the continuation is passed a ready future that holds the result that triggered the continuation."_ – pg. 109
+
+The only continuation in this book is the continuous supply of non-functional code samples, with Listing 4.17 being yet another example - unless I'm doing something silly, I am so fed up of authors not testing their code before putting it into their books.
+
+Listing 4.17 is _**not**_ a simple nor suitable replacement for `std::async` - it doesn't even run.
+
+[trash.cpp](trash.cpp)
+
+#
+### 
 
 #
 ### ...work in progress
