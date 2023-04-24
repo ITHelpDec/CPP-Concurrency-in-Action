@@ -320,6 +320,12 @@ All the abbreviations.
 This style of programme design used in the next overly-simplified example to add to the list is called the Actor model - the key being that in this state machine, there are no shared states - only that which is directly passed via messages.
 
 #
+### Continuations
+> _"When the data is ready, then do this processing"_ – pg. 109
+
+This form of technique is available as part of the `<experimental>` library, although it looks like the consensus is more towards the introduction of executors over `std::experimental::future::then` due to superior performance.
+
+#
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
