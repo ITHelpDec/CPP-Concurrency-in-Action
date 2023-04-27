@@ -333,8 +333,15 @@ Listing 4.17 is _**not**_ a simple nor suitable replacement for `std::async` - i
 
 [trash.cpp](trash.cpp)
 
-#
-### 
+Listing 4.22 is also dirt - a great sketch, but this line pretty much sums up the general level of f**ks given for the majority of these code samples.
+```cpp
+size_t const chunk_size=whatever;
+```
+I've raised another PR [here](https://github.com/anthonywilliams/ccia_code_samples/pull/31) (if anyone's interested) to address the compilation errors and tweak some other bits.
+
+Personally, if I had a choice, I'd have re-written it with a bit more context and substance like in the example below, but if you have other suggestions then feel free to contribute.
+
+[gather_results.cpp](gather_results.cpp)
 
 #
 ### ...work in progress
