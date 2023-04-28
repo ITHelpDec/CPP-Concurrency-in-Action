@@ -343,6 +343,18 @@ Personally, if I had a choice, I'd have re-written it with a bit more context an
 
 [gather_results.cpp](gather_results.cpp)
 
+I'm going to write off the rest of this chapter in terms of examples, because they don't work - LPT: don't write a book on experimental features.
+
+#
+### Latches and barriers
+#### Latch
+> _"...once it [a latch] is ready, it stays ready until it is destroyed."_ - pg. 118
+> _"...doesn't care which threads decrement the counter..."_ – pg. 118
+
+#### Barrier
+> _"..., a barrier is a reusable synchronsation component used for internal synchronisation between a set of threads."_ - pg. 118
+> _"..., each thread can only arrive at the barrier once per cycle"_ – pg. 118
+
 #
 ### ...work in progress
 #
