@@ -354,6 +354,20 @@ I'm going to write off the rest of this chapter in terms of examples, because th
 #### Barrier
 > _"..., a barrier is a reusable synchronsation component used for internal synchronisation between a set of threads."_ - pg. 118
 > _"..., each thread can only arrive at the barrier once per cycle"_ – pg. 118
+> _"barriers can be reused"_ – pg. 118
+
+Basically latches are "first come, first serve", barriers are "hit the checkpoint, wait for the rest".
+
+The example in the book is dirt, and it's still only partially supported by Apple Clang, so that doesn't help.
+
+The loop counter in the `std::async` call is passed by value, though - passing by reference could result in a data race and undefined behaviour.
+
+```cpp
+threads.emplace_back( [&, i] () { /*...*/; } );
+```
+> _"...you only need a latch [...] because the threads have additional processing to do after the data is ready; otherwise you could wait for all the futures..."_ – pg. 119
+
+> _"...the call to `.count_down()` synchronizes with the call to `.wait()`"_ – pg. 119
 
 #
 ### ...work in progress
