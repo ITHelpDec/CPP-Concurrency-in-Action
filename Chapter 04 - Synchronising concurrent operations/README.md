@@ -358,9 +358,13 @@ I'm going to write off the rest of this chapter in terms of examples, because th
 
 Basically latches are "first come, first serve", barriers are "hit the checkpoint, wait for the rest".
 
-The example in the book is dirt, and it's still only partially supported by Apple Clang, so that doesn't help.
+Listing 4.25 in the book is another example of why whitespace is important - besides inconsistencies in namespace directives, it's easy to assume there's an opening `{` after the `for` loop when, in fact, there isn't - the side effect being, if we include the `done.wait()` inside the body of the `for` loop, the function will hang indefinitely.
 
-The loop counter in the `std::async` call is passed by value, though - passing by reference could result in a data race and undefined behaviour.
+[latch.cpp](latch.cpp)
+
+Also, bear in mind that certain features are only available in Xcode if the Deployment Target is set to a suitable version of macOS - specifically, for `.count_down()`, this feature only came into play in macOS 11.0.
+
+Another useful tidbit is knowing that the loop counter in the `std::async` call is passed by value - passing by reference could result in a data race and undefined behaviour.
 
 ```cpp
 threads.emplace_back( [&, i] () { /*...*/; } );
@@ -368,6 +372,10 @@ threads.emplace_back( [&, i] () { /*...*/; } );
 > _"...you only need a latch [...] because the threads have additional processing to do after the data is ready; otherwise you could wait for all the futures..."_ – pg. 119
 
 > _"...the call to `.count_down()` synchronizes with the call to `.wait()`"_ – pg. 119
+
+> _"... – a thread cannot wait for a barrier to be ready unless it is one of the threads in the synchronisation group."_ – pg. 120
+
+Threads can drop out of the synchronisation group by calling `.arrive_and_drop()` (as in, _"drop out"_)
 
 #
 ### ...work in progress
