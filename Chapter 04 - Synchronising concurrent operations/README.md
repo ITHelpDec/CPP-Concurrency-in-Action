@@ -378,6 +378,14 @@ threads.emplace_back( [&, i] () { /*...*/; } );
 Threads can drop out of the synchronisation group by calling `.arrive_and_drop()` (as in, _"drop out"_)
 
 #
+### Barrier example
+Again, another cruddy example - thankfully, this time I only had to write a measly _**<ins>82 extra lines of code</ins>**_ to get it to compile...and even at that I'm not sure it functions as intended.
+
+[barrier.cpp](barrier.cpp)
+
+Amendments are welcome - I could probably include a mutex for the `std::cout` calls, but it is what it is for now.
+
+#
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
