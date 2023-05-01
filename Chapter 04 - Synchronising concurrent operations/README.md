@@ -386,7 +386,23 @@ Again, another cruddy example - thankfully, this time I only had to write a meas
 Amendments are welcome - I could probably include a mutex for the `std::cout` calls, but it is what it is for now.
 
 #
-### ...work in progress
+### Flex barriers
+No longer exist in C++20/23 - just standard barrier with a function pointer / std::function / lambda.
+
+Thanks to the 80-odd lines of code I wrote from the last example, I didn't need to amend much to get it to run, but the intent isn't what I wanted, so I suppose that's on my ability more than anything else - again, contributions / amendments are welcome.
+
+[ultimate_flex_barrier.cpp](ultimate_flex_barrier.cpp)
+
+The lambda is a completion function - the return value is more important though.
+
+> _"The return value of -1 indicates that the number of participating threads is to remain unchanged;"</br>"a return value of zero or more would specify the number of participating threads in the next cycle."_ – pg. 123
+
+The body of the `while` loop is now a little easier to digest, and (as a double benefit) only includes the paralell section of the code (winner, winner - chicken dinner!)
+
+#
+### ...Summary
+To summarise, there have been a lot of synchronisation primitives covered (condition variables, promises, futures, packaged tasks, latches, barriers), and an intro to the value-semantic / independent style of functional programming - next we leave these "higher-level" concepts behind to look at more of the lower-level
+
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
 
