@@ -400,8 +400,12 @@ The lambda is a completion function - the return value is more important though.
 The body of the `while` loop is now a little easier to digest, and (as a double benefit) only includes the paralell section of the code (winner, winner - chicken dinner!)
 
 #
-### ...Summary
-To summarise, there have been a lot of synchronisation primitives covered (condition variables, promises, futures, packaged tasks, latches, barriers), and an intro to the value-semantic / independent style of functional programming - next we leave these "higher-level" concepts behind to look at more of the lower-level
+### Summary
+To summarise, there have been a lot of synchronisation primitives covered (condition variables, promises, futures, packaged tasks, latches, barriers), and an intro to the value-semantic / independent style of functional programming - next we leave these "higher-level" concepts behind to look at more of the lower-level.
+
+Refreshing my knowledge of these primitives has been great, and I've learnt some new concepts along the way, but this chapter's examples have been some of the worst code samples in any book I've read yet - if you were to submit code like this as part of a university assessment, you would get a flat-out 0 (mainly because it doesn't run!).
+
+The book is called Concurrency in Action, after all - not Concurrency in Principle.
 
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
