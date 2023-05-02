@@ -37,11 +37,20 @@ I feel like the author glosses over bitfields (like we all know what they are), 
 int main()
 {
     std::atomic<int> ai = 3;
-    std::cout << "ai.is_always_lock_free(): " << (ai.is_always_lock_free ? "true" : "false") << '\n'; // true
+    std::cout << "ai.is_always_lock_free(): "
+              << (ai.is_always_lock_free ? "true" : "false") << '\n'; // true
     
     return 0;
 }
 ```
+
+#
+### `std::atomic_flag`
+Operations on this type are _required_ to be lock-free.
+
+They also have two functions as of when the book was written ([although there appear to more](https://en.cppreference.com/w/cpp/atomic/atomic_flag)):
+* `test_and_set()` for `true`
+* `clear()` for `false`
 
 #
 ### ...work in progress
