@@ -87,6 +87,12 @@ If we go back to the two member functions:
 The author mentions not being able to copy-contruct / perform assignment on atomics about five times, so probably also worth remembering.
 
 #
+### `std::atomic<bool>`
+A less crippled version of `std::atomic_flag`.
+
+[atomic_bool.cpp](atomic_bool.cpp)
+
+#
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
