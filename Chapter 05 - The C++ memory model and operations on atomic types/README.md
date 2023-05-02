@@ -53,6 +53,40 @@ They also have two functions as of when the book was written ([although there ap
 * `clear()` for `false`
 
 #
+### `std::memory_order`
+An enum that can be passed as an optional argument to the atomic type operations.
+* `std::memory_order_relaxed`
+* `std::memory_order_acquire`
+* `std::memory_order_consume`
+* `std::memory_order_acq_rel`
+* `std::memory_order_release`
+* `std::memory_order_seq_cst`
+
+If no ordering is specified, the default ordering is used (`std::memory_order_seq_cst`).
+
+#
+### Worth remembering
+* Store operations - relaxed, release, seq_cst
+* Load operations - relaxed, consume, acquire, seq_cst
+* Read-modify-wrte - all of the above
+
+#
+### Back to `std::atomic_flag`
+If you're coding in C++11-C++17, you must always explicit initialise an atomic_flag to `ATOMIC_FLAG_INIT`.
+```cpp
+std::atomic_flag fleg = ATOMIC_FLAG_INIT;
+```
+From C++20 onwards, however, this macro is no longer needed (see [here](https://en.cppreference.com/w/cpp/atomic/ATOMIC_FLAG_INIT)).
+
+[spinlock_mutex.cpp](spinlock_mutex.cpp)
+
+If we go back to the two member functions:
+* `.clear()` is a store operation, so we know what memory ordering we can take advantage of
+* `.test_and_set()` is read-modify-write, so we have more semantics choices
+
+The author mentions not being able to copy-contruct / perform assignment on atomics about five times, so probably also worth remembering.
+
+#
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
