@@ -93,6 +93,30 @@ A less crippled version of `std::atomic_flag`.
 [atomic_bool.cpp](atomic_bool.cpp)
 
 #
+### The "compare-exchange" principle
+The cornerstone of programming with atomic types.
+
+A bit of waffle followed by the introduction of two member functions:
+* `.compare_exchange_weak()`
+* `.compare_exchange_strong()`
+
+#
+### Spurious failure
+Spurious failure is when a function fails; not because of values of the variable, but because of timing.
+
+> _"Because `.compare_exchange_weak()` can fail spuriously, it must typically be used in a loop:"_ - pg. 135
+
+> _"A failed compare-exchange doesn’t do a store, so it can’t have `std::memory_order_release` or `std::memory_order_acq_rel` semantics"_ – pg. 136
+
+> _"You also can’t supply stricter memory ordering for failure than for success;...if you don’t specify an ordering for failure, it’s assumed to be the same as that for success"_ – pg. 136
+
+We're falling victim to "feature dumping" in these couple of pages, with a lot of waffle and very little substance - yet to see these functions applied to something useful / relevant.
+
+#
+### Locking
+`std::atomic<bool>` may not be lock-free.
+
+#
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
