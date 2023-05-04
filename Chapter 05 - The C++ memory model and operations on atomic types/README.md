@@ -136,6 +136,38 @@ The biggest takeaway here is the subtle difference between the member functions 
 [compound_fetch.cpp](compound_fetch.cpp)
 
 #
+### The std::atomic<> primary class template
+You must have a trivial copy-assignment operator i.e. no virtual functions / base classes, and use the compiler-synthesised copy-assignment operator.
+
+Every other base class and non-static data member must also have a trivial copy-assignment operator (allows the compiler to run `memcpy()`.
+
+> _"..., it is worth noting that the compare-exchange operations do bitwise comparison as if using `memcmp`. rather than using any comparison operator..."_ – pg. 139
+
+> _"In general, the compiler isn’t going to be able to generate lock-free code for `std::atomic<UDT>`, so it will have to use an internal lock for all the operations."_
+
+Side-note: wrap all markdown angular brackets in code-wrappers or GitHub will auto-indent everytime you do a new line (frustratingAF).
+
+If we supplied a user-defined copy-assignment operator then we'd be breaking the "don't pass a reference / pointer outside the scope of the lock" rule.
+```cpp
+T& operator=(const T &t);
+```
+Be mindful of `std::atomic<float>` and `std::atomic<float>` - the behaviour might be surprising.
+
+#
+### Non-member functions
+More waffle followed by:
+```cpp
+std::atomic_is_lock_free(&x) == x.is_lock_free();
+std::atomic_load(&x) == x.load();
+std::atomic_load_explicit(&x, std::memory_order_acquire) = x.load(std::memory_order_acquire);
+```
+#
+### `std::shared_ptr<>`
+Not sure if this is the right kind of implementation, but I suppose this is the thing with books providing code samples with bodyless functions.
+
+[atomic_shared.cpp](atomic_shared.cpp)
+
+#
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
