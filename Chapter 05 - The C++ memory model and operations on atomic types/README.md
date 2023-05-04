@@ -168,6 +168,12 @@ Not sure if this is the right kind of implementation, but I suppose this is the 
 [atomic_shared.cpp](atomic_shared.cpp)
 
 #
+### Reader / writer
+Inefficient as anything, but an example similar to the one we did with the [shared mutexes](https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/1f96b1f65f78e859dc41771a9658151dcf6a7c20/Chapter%2003%20-%20Sharing%20data%20between%20threads/README.md#protecting-rarely-updated-data-structures) (and maybe condition variables).
+
+[read_write.cpp](read_write.cpp)
+
+#
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
