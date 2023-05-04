@@ -112,9 +112,28 @@ Spurious failure is when a function fails; not because of values of the variable
 
 We're falling victim to "feature dumping" in these couple of pages, with a lot of waffle and very little substance - yet to see these functions applied to something useful / relevant.
 
+I'll be honest - after the waffle, I was none the wiser about how and when to apply these compare exchanges, but according to [cppreference](https://en.cppreference.com/w/cpp/atomic/atomic/compare_exchange):
+
+> _"Compare-and-exchange operations are often used as basic building blocks of lockfree data structures
+"_
+
 #
 ### Locking
 `std::atomic<bool>` may not be lock-free.
+
+#
+### Atomic pointers (`std::atomic<T*>`)
+We get two more member functions, ...
+* `.fetch_add()`
+* `.fetch_sub()`
+
+...as well as the typical arithmetic operators (`+=`, `-=` and pre- and post-increment).
+
+The biggest takeaway here is the subtle difference between the member functions and compound-assignment operators when it comes to pointer arithmetic:
+* member functions - assign THEN step (returns old value)
+* compound assignment = step THEN assign (returns new value)
+
+[compound_fetch.cpp](compound_fetch.cpp)
 
 #
 ### ...work in progress
