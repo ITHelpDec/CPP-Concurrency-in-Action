@@ -174,6 +174,14 @@ Inefficient as anything, but an example similar to the one we did with the [shar
 [read_write.cpp](read_write.cpp)
 
 #
+### Happens-before
+Just as the _compare-exchange_ principle was the cornerstone of programming with atomic types, _"the happens-before and strongly-happens-before relationships are the basic building blocks of operation ordering in a program"_.
+
+> _"it specifies which operations see the effects of which other operations"_ – pg. 145
+
+[happens_before.cpp](happens_before.cpp)
+
+#
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
