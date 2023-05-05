@@ -181,6 +181,21 @@ Just as the _compare-exchange_ principle was the cornerstone of programming with
 
 [happens_before.cpp](happens_before.cpp)
 
+Yet more waffle, followed by "don't use `std::memory_order_consume`", especially in strong-happens-before operations, so now we have a different problem - the code exmaples of these niche instances or no longer rubbish; they're non-existent!
+
+#
+### Memory ordering for atomic operations
+Already covered this earlier, but now we're splitting them into three categories of ordering:
+* sequentially-consistent (`seq_cst`)
+* acquire-release (`consume`, `acquire`, `release`, `acq_rel`)
+* relaxed (`relaxed`)
+
+My understanding of this section is that memory orderings allow us to only "pay for what we need" in true C++ fashion with atomic operations.
+
+#
+### Explanations of memory ordering
+* `std::memory_order_seq_csst` - like squashing all the instructions to make them appear as if they were performed sequentially on a single thread
+
 #
 ### ...work in progress
 #
