@@ -196,6 +196,10 @@ My understanding of this section is that memory orderings allow us to only "pay 
 ### Explanations of memory ordering
 * `std::memory_order_seq_csst` - like squashing all the instructions to make them appear as if they were performed sequentially on a single thread
 
+> _"On a weakly-ordered machine with many processors, it can impose a noticeable performance penalty"_ – pg. 147
+
+[seq_cst_example.cpp](seq_cst_example.cpp)
+
 #
 ### ...work in progress
 #
