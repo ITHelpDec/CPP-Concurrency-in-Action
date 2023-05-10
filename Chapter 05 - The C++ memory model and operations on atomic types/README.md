@@ -200,6 +200,30 @@ My understanding of this section is that memory orderings allow us to only "pay 
 
 [seq_cst_example.cpp](seq_cst_example.cpp)
 
+> _"For there to be a single total order, if one thread sees x==true and then subse- quently sees y==false, this implies that the store to x occurs before the store to y in this total order...it could also happen the other way round...but under no circumstance can z \[our atomic int\] be 0"_ – pg. 149
+
+#
+### Non-sequentially consistent memory orderings
+> _"threads don’t have to agree on the order of events"_ – pg. 150
+
+> _"In the absence of other ordering constraints, the only requirement is that all threads agree on the modification order of each individual variable."_ – pg. 150
+
+#
+### `std::memory_order_relaxed`
+> _"Operations on atomic types performed with relaxed ordering don’t participate in synchronizes-with relationships (\[although\] they still obey happens-before relationships \[within a single thread\])."_ – pg. 150
+
+> _"The only requirement is that accesses to a single atomic variable from the same thread can’t be reordered; once a given thread has seen a particular value of an atomic variable, a subsequent read by that thread can’t retrieve an earlier value of the variable"_ – pg. 150
+
+[relaxed.cpp](relaxed.cpp)
+
+In this instance (using `std::memory_order_relaxed`), the assertion _can_ fire.
+
+> _"Even though there’s a happens-before relationship between the stores and between the loads, there isn’t one between either store and either load, and so the loads can see the stores out of order."_ – pg. 150
+
+[relaxed_on_roids.cpp](relaxed_on_roids.cpp)
+
+This is slightly more involved example of `std::memory_order_relaxed` - the atomic `go`is used to sync all of the threads; reason being is that _"launching a thread is expensive, and without the explicit delay, the first thread may finish before the last one has even started"_.
+
 #
 ### ...work in progress
 #
