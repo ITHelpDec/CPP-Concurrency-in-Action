@@ -224,6 +224,48 @@ In this instance (using `std::memory_order_relaxed`), the assertion _can_ fire.
 
 This is slightly more involved example of `std::memory_order_relaxed` - the atomic `go`is used to sync all of the threads; reason being is that _"launching a thread is expensive, and without the explicit delay, the first thread may finish before the last one has even started"_.
 
+The author's description of people on the other end of the phone writing to and reading numbers off of a notepad in succession, but never going back on themselves as they progress through the list, is quite a clever analogy - have to give credit where credit is due.
+
+> _"Write down this number, and tell me what was at the bottom of the list = `.exchange()`"_ – pg. 155
+
+> _"Write down this number if the number on the bottom of the list is *that*; otherwise tell me what I should have guessed = `.compare_exchange_strong()`"_ – pg. 155
+
+It would be nice, however, to know under what circumstances this memory ordering is useful.
+
+I think it's great demonstrating what things do, but without context and relevance it's just yet another feature - a feature that the author then recommends we don't use after 7-odd pages of describing all of its intricacies.
+
+Why do we ignore the why??
+
+Given the unpredictable nature of the ordering, you'd almost wonder if it would be a good way of generating non-psuedo random numbers, even though there are plenty of methods in the `<random>` library?
+
+#
+### Acquire-release ordering
+> _"One way to achieve additional synchronisation without the overhead of full-blown sequential consistency is to use acquire-release ordering"_ – pg. 155
+
+* `.load()` calls are _acquire_ operations (`std::memory_order_acquire`)
+* `.store()` calls are _release_ operations (`std::memory_order_release`)
+* _read-modify-write_ operations like `.fetch_add()` and `.exchange()` can be either _acquire_, _release_, or both (`std::memory_order_acq_rel`)
+
+> _"A release operation synchronises with an acquire operation that reads the value written"_ – pg. 156
+
+[acq_rel.cpp](acq_rel.cpp)
+
+The author also introduces another example, this time where two `.store()` operations are called on the same thread (one with relaxed ordering, the other with release).
+
+> _"In order to provide any synchronization, acquire and release operations must be paired up."_ – pg. 158
+
+> _"The value stored by a release operation must be seen by an acquire operation for either to have any effect"_ – pg. 158
+
+[acq_rel_same_thread.cpp](acq_rel_same_thread.cpp)
+
+> _"Now, here’s where the acquire-release semantics kick in: if you tell the man all the batches you know about when you ask for a value, he’ll look down his list for the last value from any of the batches you know about and either give you that number or one further down the list."_ – pg. 158
+
+This is quite clever, and what feels like another good analogy from the author - with this description, it almost sounds like an associative container, with the value being a stack / vector of potential values (in this case).
+
+The acquire-release model appears to write to and read from the **_last_** value of the "batch" - this helps to syncrhonise data across multiple threads.
+
+Clever!
+
 #
 ### ...work in progress
 #
