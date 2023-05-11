@@ -194,7 +194,7 @@ My understanding of this section is that memory orderings allow us to only "pay 
 
 #
 ### Explanations of memory ordering
-* `std::memory_order_seq_csst` - like squashing all the instructions to make them appear as if they were performed sequentially on a single thread
+* `std::memory_order_seq_cst` - like squashing all the instructions to make them appear as if they were performed sequentially on a single thread
 
 > _"On a weakly-ordered machine with many processors, it can impose a noticeable performance penalty"_ – pg. 147
 
@@ -265,6 +265,10 @@ This is quite clever, and what feels like another good analogy from the author -
 The acquire-release model appears to write to and read from the **_last_** value of the "batch" - this helps to syncrhonise data across multiple threads.
 
 Clever!
+
+#
+### Transitive ordering & synchronisation
+[three_blind_threads.cpp](three_blind_threads.cpp)
 
 #
 ### ...work in progress
