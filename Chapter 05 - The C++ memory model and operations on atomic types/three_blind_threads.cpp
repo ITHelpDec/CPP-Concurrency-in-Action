@@ -13,7 +13,7 @@ void thread_one() {
     data[3].store(3, std::memory_order_relaxed);
     data[4].store(4, std::memory_order_relaxed);
     
-    sync1.store(true, std::memory_order_relaxed); // end of "batch"
+    sync1.store(true, std::memory_order_release); // end of "batch"
 }
 
 void thread_two() {
