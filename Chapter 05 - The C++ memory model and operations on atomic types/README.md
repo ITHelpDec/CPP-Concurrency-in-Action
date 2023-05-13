@@ -316,6 +316,14 @@ I attempted using smart pointers with this example, but didn't have much luck - 
 
 [kill_dependency.cpp](kill_dependency.cpp)
 
+I added an extra store-release function (`e()`) with some extra threads to make it more similar to the previous examples.
+
+#
+### Release sequences
+> _"There can be any number of links in the chain, but provided they’re all read-modify-write operations such as `.fetch_sub()`, the `.store()` will still synchronize with each one that’s tagged `std::memory_order_acquire`."_ – pg. 165
+
+[sequence.cpp](sequence.cpp)
+
 #
 ### ...work in progress
 #
