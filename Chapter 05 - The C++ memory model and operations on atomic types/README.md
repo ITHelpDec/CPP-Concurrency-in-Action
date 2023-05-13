@@ -282,6 +282,40 @@ This can be simplified into a single variable by taking advantage of "read-modif
 
 One thing I may have missed about why to opt for weak or strong – if the calculation of the value to be stored is _cheap_, opt for _weak_; if it's **expensive**, opt for **strong** (pg. 136).
 
+A main takeaway from this section is that `std::memory_order_acq_rel` can synchronise with a prior _store-release_ or with a subsequent _load_acquire_.
+
+#
+### Mixing it up
+If you mix acquire-release operations with consistently-sequential operations, sequentially-consistent operations fall in with the acquire-release operations and mimic their semantics ("store-release, load-acquire").
+
+#
+### Mutexes
+Like mutexes, your acquire and release operations have to be on the same variable to ensure an ordering (161).
+
+#
+### Acquire-release is cheaper than sequentially-consistent
+> _"If you don’t need the stringency of sequentially consistent ordering for your atomic operations, the pair-wise synchronisation of acquire-release ordering has the potential for a much lower synchronisation cost than the global ordering required for sequentially consistent operations."_ – pg. 161
+
+#
+### `std::memory_order_consume`
+The C++17 standard explicitly recommends that you don't use it, with its unique trait being that it's all about dependencies...but what is a data dependency?
+
+> _"...there is a data dependency between two operations if the second one operates on the result of the first."_ – pg. 162
+
+> _"One important use for this kind of memory ordering is where the atomic operation loads a pointer to some data."_ – pg. 162
+
+> _"By using `std::memory_order_consume` on the load and `std::memory_order_release` on the prior store, you ensure that the pointed-to data is correctly synchronized, without imposing any synchronisation requirements on any other non-dependent data."_ – pg. 162
+
+[consume.cpp](consume.cpp)
+
+I attempted using smart pointers with this example, but didn't have much luck - it seems to be the norm to call `operator new` when using `std::memory_order_consume`. I get that you need to use variables on the heap to allow inter visiblity across threads, but this looks like a memory leak waiting to happen. `std::atomic<std::shared_ptr<T>>` exists as of C++20, but compatibility across compilers still hasn't improved since the last time I tried in C++ High Performance ([here](https://github.com/ITHelpDec/CPP-High-Performance/blob/f54fe8caafddb709765e576b89b2d78bef14e3a3/Chapter%2011%20-%20Concurrency/atomic_shared_ptr.cpp#L7));
+
+#
+### `std::kill_dependency()`
+> _"if you have a global read-only array, and you use `std::memory_order_consume` when retrieving an index into that array from another thread, you can use `std::kill_dependency()` to let the compiler know that it doesn’t need to reread the contents of the array entry."_ – pg. 163
+
+[kill_dependency.cpp](kill_dependency.cpp)
+
 #
 ### ...work in progress
 #
