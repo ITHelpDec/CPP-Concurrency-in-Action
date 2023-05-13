@@ -278,7 +278,7 @@ This can be simplified into a single variable by taking advantage of "read-modif
 
 > _"`.compare_exchange_strong()`...can eliminate the need for loops...where you want to know whether you successfully changed a variable or whether another thread got there first."_
 
-[acq_rel.cpp](acq_rel.cpp)
+[read_modify_write.cpp](read_modify_write.cpp)
 
 One thing I may have missed about why to opt for weak or strong – if the calculation of the value to be stored is _cheap_, opt for _weak_; if it's **expensive**, opt for **strong** (pg. 136).
 
