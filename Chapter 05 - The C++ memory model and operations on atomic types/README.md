@@ -268,7 +268,19 @@ Clever!
 
 #
 ### Transitive ordering & synchronisation
+Below we have an example of the "store-release, load-acquire" semantics in action across threads.
+
 [three_blind_threads.cpp](three_blind_threads.cpp)
+
+`sync1` "passes the baton" from thread 1 to thread 2, then `sync2` passes the baton from thread 2 to thread 3.
+
+This can be simplified into a single variable by taking advantage of "read-modify-write" i.e. `std::memory_order_acq_rel` in the intermediatary steps (thread 2) - my one question, though, is - why use `.compare_exchange_strong()` in a loop if `compare_exchange_weak()` was recommended in looping instances earlier in the book at pg. 135?
+
+> _"`.compare_exchange_strong()`...can eliminate the need for loops...where you want to know whether you successfully changed a variable or whether another thread got there first."_
+
+[acq_rel.cpp](acq_rel.cpp)
+
+One thing I may have missed about why to opt for weak or strong – if the calculation of the value to be stored is _cheap_, opt for _weak_; if it's **expensive**, opt for **strong** (pg. 136).
 
 #
 ### ...work in progress
