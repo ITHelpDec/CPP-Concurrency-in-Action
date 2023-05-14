@@ -349,8 +349,28 @@ void write_ab1_then_ab2() {
 ### The real benefit...
 > _"...of using atomic operations to enforce an ordering is that they can enforce an ordering on non-atomic oper- ations and avoid the undefined behavior of a data race, ..."_ – pg. 168
 
+[non_atomic.cpp](non_atomic.cpp)
+
+> _"...the fences enforce an ordering on the operations on x, once the reading thread has seen the stored value of y. This enforced ordering means that there’s no data race on x, even though it’s modified by one thread and read by another."_ – pg. 169
+
 #
-### ...work in progress
+### Ordering of non-atomic operations
+> _"Ordering of non-atomic operations through the use of atomic operations is where the sequenced-before part of happens-before becomes so important."_ – pg. 169
+
+> _"If a non-atomic operation is sequenced before an atomic operation, and that atomic operation happens before an operation in another thread, the non-atomic operation also happens before that operation in the other thread."_ – pg. 169
+
+> _"Although other mutex implementations will have different internal operations, the basic principle is the same: lock() is an acquire operation on an internal memory location, and unlock() is a release operation on that same memory location."_ – pg. 170
+
+#
+### Summary
+A cool chapter, in all fairness.
+
+For one, the examples were (for the most part) fully-functional, which has helped a lot with one, grasping the concepts, and two, making progress through the book instead of spending time on making the examples functional!
+
+I still feel like more contextual examples could be given, combined with less waffle, in order to get the points across, as (despite the content) I still feel like there's a lot more to be learnt about the different semantics and concepts like _happens-before_ and syncrhonises-with_.
+
+It will be interesting to see the higher-level synchronisation facilities used in combination with atomics to create efficient containers and algorithms.
+
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
 
