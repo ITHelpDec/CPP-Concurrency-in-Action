@@ -325,6 +325,18 @@ I added an extra store-release function (`e()`) with some extra threads to make 
 [sequence.cpp](sequence.cpp)
 
 #
+### Fences (aka memory barriers)
+> _"These are operations that enforce memory-ordering constraints without modifying any data and are typically combined with atomic operations that use the `std::memory_order_relaxed` ordering constraints."_ – pg. 166
+
+> _"Fences are global operations and affect the ordering of other atomic operations in the thread that executed the fence."_ – pg. 166
+
+> _"Fences restrict this freedom \[`std::memory_order_relaxed`\] and introduce happens-before and synchronises-with relationships that weren’t present before."_ – pg. 166
+
+[fence.cpp](fence.cpp)
+
+Based on the previous example, it can be seen that fences are a way to bring about _"store-release, load-acquire"_ semantics amidst `std::memory_order_relaxed` operations.
+
+#
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
