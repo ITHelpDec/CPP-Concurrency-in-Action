@@ -336,6 +336,19 @@ I added an extra store-release function (`e()`) with some extra threads to make 
 
 Based on the previous example, it can be seen that fences are a way to bring about _"store-release, load-acquire"_ semantics amidst `std::memory_order_relaxed` operations.
 
+If we were to shift the `std::atomic_thread_fence()` up one level, then the two relaxed atomic bools would no longer be ordered, and cause our assert to fire.
+```cpp
+void write_ab1_then_ab2() {
+    std::atomic_thread_fence(std::memory_order_release);
+    ab1.store(true, std::memory_order_relaxed);
+    ab2.store(true, std::memory_order_relaxed);
+}
+```
+
+#
+### The real benefit...
+> _"...of using atomic operations to enforce an ordering is that they can enforce an ordering on non-atomic oper- ations and avoid the undefined behavior of a data race, ..."_ – pg. 168
+
 #
 ### ...work in progress
 #
