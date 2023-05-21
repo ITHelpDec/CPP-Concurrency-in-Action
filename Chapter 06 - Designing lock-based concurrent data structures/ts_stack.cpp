@@ -36,10 +36,11 @@ public:
     //     data.push(std::move(new_value));
     // }
     
-    void push(T &&new_value)
+    template <typename U>
+    void push(U &&new_value)
     {
         std::lock_guard lock(m);
-        data.push(std::forward<decltype(new_value)>(new_value));
+        data.push(std::forward<U>(new_value));
     }
     
     std::shared_ptr<T> pop()
