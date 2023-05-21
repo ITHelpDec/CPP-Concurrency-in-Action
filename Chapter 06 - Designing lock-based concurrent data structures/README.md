@@ -54,6 +54,17 @@ Mutexes may throw, but it's rare; unlocking a mutex cannot fail, and `std::lock_
 
 > _"...because of the use of locks, only one thread is ever doing any work in the stack data structure at a time. This serialisation of threads can potentially limit the performance of an application..."_ – pg. 179
 
+Some really good takeaways from this exercise, albeit not immediately evident from the example in the book - it's one of those things that only becomes evident in practice.
+
+Firstly, lambdas make writing threads much easier, both in terms of reading and writing – testament to this is when passing an overloaded function like I tried to do (unsuccessfully) in Chapter 2. It is possible when using the old function-pointer-style method, but it requires `static_cast` and is very verbose when compared to the lambda.
+https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/2e068cf7565349e8e226d2a8e8229cdd11dfa6b6/Chapter%2006%20-%20Designing%20lock-based%20concurrent%20data%20structures/ts_stack.cpp#L96-L99
+
+The second takeaway is about ensuring we declare a `std::mutex` as `mutable` when it operates with a `const` function (like `bool empty() const`)
+
+And speaking of const, I've also included a link that suggested veering away from returning variables marked as `const` - the article is only about a year old at the time of writing, so I'd be interested in higher others' thoughts.
+https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/2e068cf7565349e8e226d2a8e8229cdd11dfa6b6/Chapter%2006%20-%20Designing%20lock-based%20concurrent%20data%20structures/ts_stack.cpp#L45-L59
+
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
