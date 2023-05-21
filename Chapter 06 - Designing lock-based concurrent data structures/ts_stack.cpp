@@ -51,10 +51,8 @@ public:
         // std::shared_ptr<T> const res(std::make_shared<T>(std::move(data.top())));
         // apparently, not a good idea to return a const variables
         // https://quuxplusone.github.io/blog/2022/01/23/dont-const-all-the-things/
-        //
-        // used auto, perfect-forwarding and non-const
         
-        auto result = std::make_shared<T>(std::forward<decltype(data.top())>(data.top()));
+        auto result = std::make_shared<T>(std::move(data.top()));
         data.pop();
         return result;
     }
