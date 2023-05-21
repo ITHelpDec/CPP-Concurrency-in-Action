@@ -64,6 +64,21 @@ The second takeaway is about ensuring we declare a `std::mutex` as `mutable` whe
 And speaking of const, I've also included a link that suggested veering away from returning variables marked as `const` - the article is only about a year old at the time of writing, so I'd be interested in higher others' thoughts.
 https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/2e068cf7565349e8e226d2a8e8229cdd11dfa6b6/Chapter%2006%20-%20Designing%20lock-based%20concurrent%20data%20structures/ts_stack.cpp#L45-L59
 
+#
+### Threadsafe queue
+[ts_queue.cpp](ts_queue.cpp)
+
+Another helpful reminder to pair `std::unique_lock`'s with condition variables.
+
+> _"...if more than one thread is waiting when an entry is pushed onto the queue, only one thread will be woken by the call to data_cond.notify_one()"_ – pg. 181
+
+I experienced this once, before initialising a few elements sequentially to the queue – to avoid this, we can replace `.notify_one()` with `.notify_all()`.
+
+Another suggestion is to _"move the `std::shared_ptr<T>` initialisation to the `.push()` call.
+
+> _"Copying the std::shared_ptr<> out of the internal std::queue<> then can’t throw an exception, so wait_and_pop() is safe again."_ – pg. 181
+
+[ts_queue_mkii.cpp](ts_queue_mkii.cpp)
 
 ### ...work in progress
 #
