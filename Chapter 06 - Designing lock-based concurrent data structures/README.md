@@ -39,9 +39,20 @@ Similar considerations should be given to the thread-safe intention of copy-/mov
 > _"...it’s quite common for a data structure to support concurrent access from threads performing different operations while serializing threads that try to perform the same operation."_ pg. – 176
 
 #
-### Other golden nuggest
+### Other golden nuggets
 Plenty of golden nuggest so far in this chapter.
 > _"You need to ensure that data can’t be accessed outside the protection of the mutex lock and that there are no race conditions inherent in the interface, ..."_ – pg. 176
+
+# Thread-safe stack mk. II
+[ts_stack.cpp](ts_stack.cpp)
+
+We avoid a potential race condition by returning the popped value in `.pop()` (compared to how they're written in `std::stack<int>`).
+
+Mutexes may throw, but it's rare; unlocking a mutex cannot fail, and `std::lock_guard` ensures the mutex is never left locked. – pg. 178
+
+> _"The only member functions that aren’t safe are the constructors and destructors, but this isn’t a problem; the object can be constructed only once and destroyed only once."_ – ph. 178
+
+> _"...because of the use of locks, only one thread is ever doing any work in the stack data structure at a time. This serialisation of threads can potentially limit the performance of an application..."_ – pg. 179
 
 ### ...work in progress
 #
