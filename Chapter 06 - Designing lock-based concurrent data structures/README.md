@@ -90,6 +90,14 @@ This all seems a little expensive, regardless of whether or not the `std::shared
 
 ![simple.gif](simple.gif)
 
+#
+### Linked lists (aka "queues")
+[linked_list_queue.cpp](linked_list_queue.cpp)
+
+This single-threaded linked-list implementation of a queue feels like a good old leetcode question, although this time it's nice to finally see an example being used with `std::unique_ptr<T>` in place of raw calls to `operator new` - I've made a few tweaks to the example, but I may revisit easy linked-list questions in the future and see if I can re-write them using smart pointers.
+
+If I do then I'll attach them [here](https://github.com/search?q=repo%3AITHelpDec%2FLeetcode%20std%3A%3Aunique_ptr&type=code).
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
