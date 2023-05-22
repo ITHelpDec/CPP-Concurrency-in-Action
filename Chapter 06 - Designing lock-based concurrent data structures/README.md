@@ -80,6 +80,16 @@ Another suggestion is to _"move the `std::shared_ptr<T>` initialisation to the `
 
 [ts_queue_mkii.cpp](ts_queue_mkii.cpp)
 
+> _"If the data is held by `std::shared_ptr<>`, there’s an additional benefit: the allocation of the new instance can now be done outside the lock in `.push()`"_ – pg. 182
+
+This all seems a little expensive, regardless of whether or not the `std::shared_ptr<>` allocation is performed before the mutex begins, but maybe this is cost for exception safety?
+
+#
+### It's _inside_ the computer...
+> _"In order to use finer-grained locking, you need to look inside the queue at its constituent parts and associate one mutex with each distinct data item."_ – pg. 183
+
+![simple.gif](simple.gif)
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
