@@ -98,6 +98,22 @@ This single-threaded linked-list implementation of a queue feels like a good old
 
 If I do then I'll attach them [here](https://github.com/search?q=repo%3AITHelpDec%2FLeetcode%20std%3A%3Aunique_ptr&type=code).
 
+#
+### Caveats with this linked list
+> _"The most obvious problem is that `.push()` can modify both head_ and tail_, so it would have to lock both mutexes."_ – pg. 184
+
+> _"The critical problem is that both `.push()` and `.pop()` access the next pointer of a node where there is only one item, `head_ == tail_` (.:. `head_->next_` == `tail_->next_`) – pg. 184
+
+#
+### Enabling concurrency by separating data
+> _"You can solve this problem by preallocating a dummy node.."_ – pg. 185
+
+> _"If you add a node to the queue (so there’s one real node), then `head_` and `tail_` now point to separate nodes, so there’s no race on `head_->next_` and `tail_->next_`..."_ – pg. 185
+
+[dummy_node.cpp](dummy_node.cpp)
+
+I tweaked a few bits from the example to avoid calls to `operator new` and opt for perfect forwarding instead of passing by value.
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
