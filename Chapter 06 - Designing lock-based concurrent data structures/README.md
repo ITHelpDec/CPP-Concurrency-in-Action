@@ -114,6 +114,25 @@ If I do then I'll attach them [here](https://github.com/search?q=repo%3AITHelpDe
 
 I tweaked a few bits from the example to avoid calls to `operator new` and opt for perfect forwarding instead of passing by value.
 
+With these amendments, `.push()` now only accesses `tail_`; `.try_pop()` accesses both, but the lock is short-lived.
+
+> _"The big gain is that the dummy node means `.try_pop()` and `.push()` are never operating on the same node, so you no longer need an overarching mutex."_ – pg. 186
+
+#
+### Strategy
+> _"...hold the locks for the least amount of time possible."_ – pg. 186
+
+* `.push()` - lock all accesses to `tail_`
+* `.try_pop()` - be frugal with locks on `head_` and `tail_`
+
+We can then pop these requirements into private member functions to take care of the donkey work.
+
+[fine_grain_queue.cpp](fine_grain_queue.cpp)
+
+This has been the most enjoyable part of the book so far - placing the odd mutex is nothing out of this world, but it's nice to finally see something that actually looks like legit multi-threading!
+
+I created a set of threads and futures and a container for the results - it would be interesting to see how this would compare to a single-threaded approach in terms of speed.
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
