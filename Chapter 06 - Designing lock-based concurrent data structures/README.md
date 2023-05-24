@@ -133,6 +133,14 @@ This has been the most enjoyable part of the book so far - placing the odd mutex
 
 I created a set of threads and futures and a container for the results - it would be interesting to see how this would compare to a single-threaded approach in terms of speed.
 
+> _"Even though each member function holds a lock on a mutex, they hold locks on different mutexes, ..."_ – pg. 188
+
+> _"Because the call to `.get_tail()` locks the same mutex as the call to `.push()`, there’s a defined order between the two calls."_ – pg. 188
+
+> _"It’s also important that the call to `.get_tail()` occurs inside the lock on head_mutex. If it didn’t, the call to `.pop_head()` could be stuck in between the call to `.get_tail()` and the lock on the head_mutex"_ – pg. 188
+
+https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/424b817e7c3d9eb01447d34a135e88c6cba9b226/Chapter%2006%20-%20Designing%20lock-based%20concurrent%20data%20structures/broken_pop_head.cpp#L3-L16
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
