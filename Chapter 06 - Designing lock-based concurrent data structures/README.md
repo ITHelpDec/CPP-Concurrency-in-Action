@@ -162,6 +162,8 @@ This is quite impressive, and really starting to grow.
 
 I've made some amendments based on previous recommendations in the book, such as mutable mutexes for a const member function, `.empty()` (we needed to mark `.get_tail()` as const, too), and removing the `std::move` from our return value (otherwise bye-bye, copy elision!).
 
+I've also included a `main()` function to test of all of the member functions in our finished class.
+
 I'll put up a PR of the changes in case people find it useful, as there are quite a few.
 
 ### ...work in progress
