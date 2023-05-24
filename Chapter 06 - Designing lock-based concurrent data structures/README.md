@@ -141,6 +141,29 @@ I created a set of threads and futures and a container for the results - it woul
 
 https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/424b817e7c3d9eb01447d34a135e88c6cba9b226/Chapter%2006%20-%20Designing%20lock-based%20concurrent%20data%20structures/broken_pop_head.cpp#L3-L16
 
+Something like this could destroy the data structure, by moving `head_` beyond `tail_` and off the end of the list.
+
+Keeping the call to `.get_tail()` inside the lock on the `head_` mutex _"ensures that no other threads can change `head_`, and `tail_` only ever moves further away...head can never pass the value returned from `.get_tail()`, so the invariants are upheld."_ – pg. 189
+
+#
+### Exceptions
+* `.try_pop()`? Only the mutex locks, therefore exception-safe.
+* `.push()`? All heap allocations (at least in my tweaks) are smart pointers, and similar mutex lock scenario, so also exception-safe.
+
+> _"only one thread can call `.pop_head()` at a time, but multiple threads can then delete their old nodes and return the data safely."_ – 190
+
+#
+### Wait and pop
+> _"...if the copy assignment throws an exception (as it might), the data item is lost..."_
+
+[final_queue.cpp](final_queue.cpp)
+
+This is quite impressive, and really starting to grow.
+
+I've made some amendments based on previous recommendations in the book, such as mutable mutexes for a const member function, `.empty()` (we needed to mark `.get_tail()` as const, too), and removing the `std::move` from our return value (otherwise bye-bye, copy elision!).
+
+I'll put up a PR of the changes in case people find it useful, as there are quite a few.
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
