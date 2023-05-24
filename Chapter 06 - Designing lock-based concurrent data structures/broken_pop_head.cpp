@@ -10,11 +10,9 @@ class queue {
     
         // if (head_.get() == get_tail()) { return nullptr; }
         if (head_.get() == old_tail) { return nullptr; }
-            std::unique_ptr<node> old_head = std::move(head_);
-            head_ = std::move(old_head->next_);
-            return old_head;
-        }
-        // ...
-    }    
+        std::unique_ptr<node> old_head = std::move(head_);
+        head_ = std::move(old_head->next_);
+        return old_head;
+    }
     // ...
 };
