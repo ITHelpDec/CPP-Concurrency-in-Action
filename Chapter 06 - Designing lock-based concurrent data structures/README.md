@@ -164,7 +164,13 @@ I've made some amendments based on previous recommendations in the book, such as
 
 I've also included a `main()` function to test of all of the member functions in our finished class.
 
-I'll put up a PR of the changes in case people find it useful, as there are quite a few.
+I considered putting up a PR to address a few of the changes mentioned above, but there isn't one fully-fledged implementation of this _"unbounded"_ queue (only bits), so I'll leave it be for now.
+
+#
+### Unbounded
+Our queue is "unbounded" because values canbe added until we run out of memory; a "bounded" container would have a set limit of how many elements it can hold, which makes it a good way of ensuring an even spread of work across threads.
+
+We could change the condition variable in `.push(V &&val)` to wait for the queue to have fewer than a set maximum number of items if we wanted to make our current queue bounded.
 
 ### ...work in progress
 #
