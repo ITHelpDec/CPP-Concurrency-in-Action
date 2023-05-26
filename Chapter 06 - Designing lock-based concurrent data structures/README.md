@@ -172,6 +172,37 @@ Our queue is "unbounded" because values canbe added until we run out of memory; 
 
 We could change the condition variable in `.push(V &&val)` to wait for the queue to have fewer than a set maximum number of items if we wanted to make our current queue bounded.
 
+#
+### auto it == problem!
+Handling iterators in a multithreaded container is a tricky proposition.
+
+> _"Correctly handling iterators requires you to deal with issues such as another thread deleting the element that the iterator is referring to, which can get rather involved"_ – pg. 195
+
+#
+### Threadsafe associative container
+Our threadsafe associative container will do four things:
+* Add a new key / value pair
+* Change associated value
+* Remove a key / value pair
+* Obtain associated value from key
+
+Remember the principles, like not returning references and applying mutex locks around the entirety of each member function to protect the underlying data structure (although it is a little restrictive).
+
+> _"The biggest potential for a race condition is when a new key/value pair is being added; if two threads add a new value, only one will be first, and the second will therefore fail."_ – pg. 195
+
+#
+### Understanding the container
+There are three common ways of implementing an associative container
+* A binary tree, such as a _red-black tree_ (`std::map<K, V>`)
+* A sorted array (`std::set<T, B>`?)
+* A hash table (`std::unordered_map<K, V>`)
+
+> _"Assuming a fixed number of buckets, which bucket a key belongs to is purely a property of the key and its hash function. This means you can safely have a separate lock per bucket."_ – pg. 196
+
+[ts_map.cpp](ts_map.cpp)
+
+We have yet another piece of code that doesn't run out of the book - I've made a few functional / stylistic tweaks in my example, but I've also raised a PR to address the compilation error [here](https://github.com/anthonywilliams/ccia_code_samples/pull/34) in the hope of helping any future readers encountering a similar problem.
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
