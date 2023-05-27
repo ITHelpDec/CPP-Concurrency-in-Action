@@ -205,6 +205,24 @@ We have yet another piece of code that doesn't run out of the book - I've made a
 
 The test within `main()` isn't the best, as it seems the single-threaded approach is faster than our multi0threaded container - I'm open to any suggestions to make better use of the member functions and hardware.
 
+> _"Because the number of buckets is fixed, the `.get_bucket()` function can be called without any locking, and then the bucket mutex can be locked either for shared (read-only) ownership, or unique (read/write) ownership, ..."_ – pg. 198
+
+#
+### Exceptions
+* `.value_for(...)` - no exception, no cry
+* `.remove_mapping(...)` - `.erase()` won't throw, so all good 👍🏻
+* `.add_or_update_mapping(...)` - `.push_back()` is fine, replacing a value might throw
+
+#
+### Snapshots
+We're back to half-baked examples that don't compile again with this one...the first issue being that (provided we want this to be a public member function in our map) the `bucket_iterator` is a private `typedef` located in `bucket_type`, not our map - thankfully, say "hello" to our little friend, `auto` 😊
+
+The second issue is that our data (`data_`) and mutexes (`sm_`) are also private members in a sub-class, therefore `.get_map()` must be declared as a `friend` within `bucket_type` if we hope to gain access.
+
+[get_map.cpp](get_map.cpp)
+
+[Never had to raise so many PR's in my life!](https://github.com/anthonywilliams/ccia_code_samples/pull/35) 😅
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
