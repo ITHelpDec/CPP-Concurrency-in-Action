@@ -223,7 +223,42 @@ The second issue is that our data (`data_`) and mutexes (`sm_`) are also private
 
 [Never had to raise so many PR's in my life!](https://github.com/anthonywilliams/ccia_code_samples/pull/35) 😅
 
-### ...work in progress
+#
+### Writing a thread-safe list
+#### Iterators
+> _"The alternative is to provide iteration functions such as `std::for_each` as part of the container itself. This puts the container squarely in charge of the iteration and locking, but it does fall foul of the deadlock avoidance guidelines from chapter 3."_ – pg. 200
+
+#### Expectations
+* Add an item
+* Remove an item
+* Find an item
+* Update an item
+* Copy an item
+
+> _"The basic idea with fine-grained locking for a linked list is to have one mutex per node."_ – pg. 200
+
+[linked_list.cpp](linked_list.cpp)
+
+This was a more impressive example!
+
+The last map was slower than a sequential map, but this list seems very quick - I was able to produce 1000's of answers in the blink of an eye while the other threads were doing their thing (populating, modifying and erasing).
+
+> _"Also, the slow memory allocation happens outside the lock, so the lock is only protecting the update of a couple of pointer values that can’t fail."_ – pg. 202
+
+Provided the predicates and functions are well-behaved there should be no change of deadlocks in this example.
+
+> _"The only potential candidate for a race condition is the deletion of the removed node in `.remove_if()`...(it’s undefined behavior to destroy a locked mutex)."_ – pg. 203
+ 
+#
+### Summary
+This has been a really insightful chapter.
+
+Far more examples of code that actually work (bar the odd one), but it's been a great insight into creating concurrenct data structures, as well as a great refresher of linked-lists.
+
+One really nice takeaway was seeing the use of smart pointers to safely allocate memory on the heap - typically you would see this done on leetcode with raw calls to `operator new`, so I would like to go back through the basic linked-list questions to re-learn the fundamentals (I'll either dedicate a week or so to that before I get into the next chapter or do one a day - we'll see!).
+
+Now on to lock-free containers!
+
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
 
