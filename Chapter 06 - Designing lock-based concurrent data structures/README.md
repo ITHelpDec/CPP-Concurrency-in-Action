@@ -201,7 +201,9 @@ There are three common ways of implementing an associative container
 
 [ts_map.cpp](ts_map.cpp)
 
-We have yet another piece of code that doesn't run out of the book - I've made a few functional / stylistic tweaks in my example, but I've also raised a PR to address the compilation error [here](https://github.com/anthonywilliams/ccia_code_samples/pull/34) in the hope of helping any future readers encountering a similar problem.
+We have yet another piece of code that doesn't run out of the book - I've made a few functional / stylistic tweaks in my example, but I've also raised a PR to address the compilation error(s) [here](https://github.com/anthonywilliams/ccia_code_samples/pull/34) in the hope of helping any future readers encountering a similar problem.
+
+The test within `main()` isn't the best, as it seems the single-threaded approach is faster than our multi0threaded container - I'm open to any suggestions to make better use of the member functions and hardware.
 
 ### ...work in progress
 #
