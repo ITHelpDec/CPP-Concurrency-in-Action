@@ -77,6 +77,37 @@ A trickier example to play around with, this one - I found it odd that this exam
 
 I made a few tweaks - perfect-forwarding for `.push(D &&data)`, a barrier to synchronise the threads before pushing both lvalues and rvalues to see if it would produce any synchronisation errors, and then a simple traverse-a-linked-list `.print()` function, although I wonder if this needs to be handled atomically like `.push()` in case the data structure is being modified while it's being read.
 
+#
+### Push with diagrams
+Good old mermaid to the rescue!
+
+```mermaid
+flowchart LR
+    1 ~~~ head_
+    head_((head_)) ==> next_((head_->next_))
+```
+
+```mermaid
+flowchart LR
+    2 ~~~ new_node((new_node))
+    new_node ~~~ head_((head_))
+    head_ ==> next_((head_->next_))
+```
+
+```mermaid
+flowchart LR
+    3 ~~~ new_node((new_node))
+    new_node ==> head_((head_\n=\nnew_node->next_))
+    head_ ==> next_((new_node->next_->next_))
+```
+
+```mermaid
+flowchart LR
+    4 ~~~ new_node((\nnew_node\n=\nhead_))
+    new_node ==> head_((head_->next_))
+    head_ ==> next_((head_->next_->next_))
+```
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
