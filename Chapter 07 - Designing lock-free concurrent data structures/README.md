@@ -77,6 +77,9 @@ A trickier example to play around with, this one - I found it odd that this exam
 
 I made a few tweaks - perfect-forwarding for `.push(D &&data)`, a barrier to synchronise the threads before pushing both lvalues and rvalues to see if it would produce any synchronisation errors, and then a simple traverse-a-linked-list `.print()` function, although I wonder if this needs to be handled atomically like `.push()` in case the data structure is being modified while it's being read.
 
+#### ADDENDUM
+Whilst `std::atomic<std::shared_ptr<T>>` might not be a fully-accepted thing yet, `std::atomic_load(std::shared_ptr<T>)` looks to be valid from at least C++11 according to Fedor Pikus' talk at [27:28](https://youtu.be/9hJkWwHDDxs?t=27m28s) (definitely worth a watch).
+
 #
 ### Push with diagrams
 Good old mermaid to the rescue!
@@ -103,10 +106,57 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    4 ~~~ new_node((\nnew_node\n=\nhead_))
+    4 ~~~ new_node((new_node\n=\nhead_))
     new_node ==> head_((head_->next_))
     head_ ==> next_((head_->next_->next_))
 ```
+
+#
+### `compare_exchange_weak(...)`
+This is a pretty cool feature of `compare_exchange_weak()`:
+> _"...if it returns false to indicate that the comparison failed (for example, because `head_` was modified by another thread), the value supplied as the first parameter (`new_node->next_`) is updated to the current value of `head_`."_ – pg. 211
+
+> _"Because you build the data to be stored as part of the node, and you use `.compare_exchange_weak()` to update the `head_` pointer, there are no problematic race conditions here."_
+
+#
+### Leaky pop
+1) Read the current value of head
+2) Read `head_->next_`
+3) Set `head_` to `head_->next_`
+4) Return the data from the retrieved node
+5) Delete the retrieved node
+
+The tricky part is if one thread is at step 5 before the other gets to step 2 and tries to dereference a dangling pointer - we'll leave step 5 for later on.
+
+Another doozy is if two threads read the same value of `head_` they will return the same node - `.compare_exchange_weak()` comes to the rescue again, failing when either a new node has been pushed or another thread has popped the node you were trying to pop.
+
+[leaky_stack.cpp](leaky_stack.cpp)
+
+There are a few more gotchas with this example.
+
+Firstly, I don't agree with the following statement:
+> _"...if `head_` is a null pointer, it will cause undefined behavior as it tries to read the next pointer. **<ins>This is easily fixed by checking for `nullptr` in the while loop</ins>**"_ – pg. 212
+
+It doesn't matter if I write `if (!head_)`, `if (!old_head)` or `if (!old_head->next_)` in the body of the loop - all of these checks will throw for bad access if we encounter a race condition, although a few pages further on we see the other include a node check inside the condition check of the while statement, not the body of the loop.
+
+This still doesn't work for our `void pop(T &val)` function, unfortunately - I have only managed to get it to work when checking for an empty node at the beginning of the function.
+
+Typically, it is more common to check if a container is empty at the _**start**_ of the operation (i.e. before we perform any operations on a `nullptr`).
+
+My one question here is - do we perform the same
+...
+```cpp
+if (!head_) { return std::shared_ptr<T>(); }
+```
+...check (like we do in our other `.pop()` function), or do we follow the example? I almost want to side with the early-exit check, because the likes of `.compare_exchange_weak()` will only return false when someone else has beat you to the chase.
+
+I know I'm making a habit of this, but I've raised a PR [here](https://github.com/anthonywilliams/ccia_code_samples/pull/36) with a better rationale for anyone that might be interested - given the inaction of the other PR's, there's a high chance nothing will happen, but hopefully future readers might find it beneficial (myself included, especially if I find out I've made a mistake!).
+
+I also came up with (what I hope) is an atomic way of printing our container (using `.pop()` as inspiration), although, again, I wonder if it's even necessary, so feedback is welcome.
+
+https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/9e0806110e42c5f78ab325c620edc5688aa3b1ba/Chapter%2007%20-%20Designing%20lock-free%20concurrent%20data%20structures/leakier_stack.cpp#L33-L40
+
+[leakier_stack.cpp](leakier_stack.cpp)
 
 ### ...work in progress
 #
