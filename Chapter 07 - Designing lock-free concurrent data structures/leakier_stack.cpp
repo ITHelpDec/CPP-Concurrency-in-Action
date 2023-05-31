@@ -23,9 +23,11 @@ public:
     
     std::shared_ptr<T> pop()
     {
+        if (!head_) { return std::shared_ptr<T>(); }
+        
         node *old_head = head_.load();
-        while (old_head && !head_.compare_exchange_weak(old_head, old_head->next_));
-        return old_head ? old_head->data_ : std::shared_ptr<T>();
+        while (!head_.compare_exchange_weak(old_head, old_head->next_));
+        return old_head->data_;
     }
     
     void print()
