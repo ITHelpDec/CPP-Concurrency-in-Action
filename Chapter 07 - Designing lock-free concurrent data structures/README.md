@@ -184,9 +184,36 @@ An important part of this code is claiming exclusivity of the list with `.exchan
 
 > _"When a thread wants to delete an object, it must first check the hazard pointers belonging to the other threads in the system. If none of the hazard pointers reference the object, it can safely be deleted."_ – pg. 218
 
-[hazard_pointer_pop.cpp](hazard_pointer_pop.cpp)
-
 A thing to note is that using `.compare_exchange_weak()` in place of `.compare_exchange_strong()` in our example _"would result in resetting our hazard pointer unnecessarily."_ (pg 220)
+
+A quick side note to say that this example is getting larger and larger with very litte end in sight. We seem tp ne adding unfinished functions to other new functions )op top of the alread-existing functions), _then_ defining them as we introduce another function in a similar pattern - it's making this whole thing a little hard to follow, and now I just want to see the back of the chapter...
+
+#
+### `.compare_exchange_strong()`
+
+> _"If the `.compare_exchange_strong()` fails, another thread owns that entry, so you move on to the next."_ – pg. 222</br></br>_"If the exchange succeeds, you’ve successfully claimed the entry for the current thread, so you store it and stop the search"_ – pg. 222</br></br>_"If you get to the end of the list without finding a free entry, there are too many threads using hazard pointers, so you throw an exception."_ – pg. 222
+
+#
+### Cache Rich
+> _"Once the `hp_owner` instance has been created for a given thread, further accesses are much faster because the pointer is cached, so the table doesn’t have to be scanned again."_ – pg. 222
+
+#
+### Never-ending story
+And it keeps going....now we're writing out the reclaim functions...then even more stuff...I still don't think I have a fully-functioning programme to demonstrate after reading it all.
+
+Not really sure how to react to this chapter - we're going downhill again with feature-dumping and waffle. The lack of whitespace is also noticeable in the these listings.
+
+Short, purposeful commits...and now we get to the end of the paragraph and the summary is atomic operations like this can be up to 100x slower than standard operations...
+
+No bloody wonder!
+
+Now we're talking about patents for hazard pointers that were abandoned by IBM in 2010...
+
+12 pages of waffle on reclamation and I feel like I have very little to show for it...this chapter has taken such a nosedive...
+
+#
+### Better reclamation strategies
+> _"Rather than checking around `max_hazard_pointers` nodes every call to `.push()` (and not necessarily reclaiming any), you’re checking 2 * max_hazard_pointers nodes every max_hazard_pointers calls to pop() and reclaiming at least max_hazard_ pointers nodes."_
 
 ### ...work in progress
 #
