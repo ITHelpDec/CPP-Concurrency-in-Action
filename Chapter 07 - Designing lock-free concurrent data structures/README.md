@@ -158,6 +158,36 @@ https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/9e0806110e42c5f78ab3
 
 [leakier_stack.cpp](leakier_stack.cpp)
 
+> _"Note that although this is lock-free, it’s not wait-free, because the while loops in both `.push()` and `.pop()` could in theory loop forever if the `.compare_exchange_weak()` keeps failing."_
+
+#
+### Fixing the leaks
+> _"If there are no threads calling `.pop()`, it’s perfectly safe to delete all the nodes currently awaiting deletion."_ – pg. 214
+
+First listing in the book only provided a declaration (nearly sent my bloody boiling...), but then goes on to provide a full breakdown of what `.try_reclaim()` does.
+
+[reclaimable_stack.cpp](reclaimable_stack.cpp)
+
+An important part of this code is claiming exclusivity of the list with `.exchange()` - the, if `--threads_in_pop` returns `0`, we know that no other thread can be accessing this list of pending nodes (there might be new ones, but we're not fussed on them now).
+
+#
+### Timing is important
+> _"The longer the time between when the thread first finds `threads_in_pop` to be equal to 1 and the attempt to delete the nodes, the more chance there is that another thread has called `.pop()`, and that `threads_in_pop` is no longer equal to 1, preventing the nodes from being deleted."_ – pg. 218
+
+#
+### The Essence of Quiescence
+> _"The key is to identify when no more threads are accessing a particular node so that it can be reclaimed. By far the easiest such mechanism to reason about is the use of hazard pointers."_ – pg. 218
+
+#
+### Hazard Pointers
+> _"They are so called because deleting a node that might still be referenced by other threads is hazardous."_ – pg. 218
+
+> _"When a thread wants to delete an object, it must first check the hazard pointers belonging to the other threads in the system. If none of the hazard pointers reference the object, it can safely be deleted."_ – pg. 218
+
+[hazard_pointer_pop.cpp](hazard_pointer_pop.cpp)
+
+A thing to note is that using `.compare_exchange_weak()` in place of `.compare_exchange_strong()` in our example _"would result in resetting our hazard pointer unnecessarily."_ (pg 220)
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
