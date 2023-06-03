@@ -211,9 +211,47 @@ Now we're talking about patents for hazard pointers that were abandoned by IBM i
 
 12 pages of waffle on reclamation and I feel like I have very little to show for it...this chapter has taken such a nosedive...
 
+[hazardly-explained_oointers.cpp](hazardly-explained_oointers.cpp)
+
 #
 ### Better reclamation strategies
 > _"Rather than checking around `max_hazard_pointers` nodes every call to `.push()` (and not necessarily reclaiming any), you’re checking 2 * max_hazard_pointers nodes every max_hazard_pointers calls to pop() and reclaiming at least max_hazard_ pointers nodes."_
+
+#
+### Reclamation through reference-counting
+> _"If your platform supplies an implementation for which `std::atomic_is_lock_free(&some_shared_ptr<T>()` returns `true`, the whole memory reclamation issue goes away."_
+
+This is what I was trying to do earlier on in my write-up - use smart pointers over their raw equivalent to avoid raw calls to `operator new`.
+```cpp
+std::shared_ptr<int> sp;
+std::cout << "atomic sp supported?: " << std::atomic_is_lock_free(&sp) << '\n';
+// atomic sp supported?: false
+```
+Sadly no love for Apple Clang...[Godbolt works, though](https://godbolt.org/z/TTW1TjWhh)!
+
+[ref-clamation.cpp](ref-clamation.cpp)
+
+Having mentioned the lack of love, there are no issues with the compilation or running of our above example, and actually this has been one of the most insightful examples yet.
+
+An even more curious part is that the "early exit" `if (!head_) return {};` approach I mentioned earlier in the write-up might not be a good idea after all.
+
+Having encountered runtime errors with the "early-exit" approach, I'm thinking that even _if_ `head_` is valid when we perform our check, it may not be valid at the point we call `std::atomic_load(&head_)`, so if we don't include `original_head` in our `while` conditions, we run the risk of performing operations on a `nullptr` - now I understand why the author wrote their functions as they did.
+
+The author says we can also use the experimental version of `std::atomic_smart_pointer`.
+
+#
+### Counted Node Pointer
+Another half-baked example from the book calling a function that doesn't exist yet.
+
+[half-baked.cpp](half-baked.cpp)
+
+#
+### Size matters
+> _"On those platforms that support a double-word-compare-and-swap operation, this structure will be small enough for `std::atomic<counted_node_ptr>` to be lock-free."_ – pg. 230
+
+> _"...`std::atomic<>` will use a mutex to guarantee atomicity when the type is too large for the platform’s atomic instructions \[DWORD CAS\] (rendering your “lock-free” algorithm lock-based after all)"_ – pg. 230
+
+[slightly_more_baked.cpp](slightly_more_baked.cpp)
 
 ### ...work in progress
 #
