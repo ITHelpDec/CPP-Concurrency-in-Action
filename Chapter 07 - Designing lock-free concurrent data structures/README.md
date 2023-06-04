@@ -253,6 +253,12 @@ Another half-baked example from the book calling a function that doesn't exist y
 
 [slightly_more_baked.cpp](slightly_more_baked.cpp)
 
+Looks like there's a bug in this implementation, as popping from an empty stack causes `__atomic_add_fetch` to throw within `__libcpp_atomic_refcount_decrement`...after a bit of debugging, it appears the implicit boolean condition in our `if` statement indicates an empty stack one dereference too late.
+
+I've attached a link to the PR [here](https://github.com/anthonywilliams/ccia_code_samples/pull/37), but the long and short of it is that we need to check if _`ptr_->next.ptr_`_ is a valid pointer, not `ptr_`.
+
+Can't help but think £40-odd is a lot of money to pay for a second edition book with this many typos.
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
