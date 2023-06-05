@@ -259,6 +259,28 @@ I've attached a link to the PR [here](https://github.com/anthonywilliams/ccia_co
 
 £40-odd is a lot of money to pay for a second edition book with this many typos...
 
+> _"...by incrementing the external reference count, you ensure that the pointer remains valid for the duration of your access."_ – pg. 231
+
+> _"If the reference count is now zero, the previous value (which is what fetch_add returns) was the negative of what you added, in which case you can delete the node"_ – pg. 231
+
+#
+### Acquire-released bakes
+Now that we have functioning code sample, we can start to relax some of the memory ordering to reduce any unnecessary overhead.
+
+> _"...the `next_` value is a plain non-atomic object, so in order to read this safely, there must be a "happens-before" relationship between the `.store()`\* (by the pushing thread) and the `.load()`\*\* (by the popping thread)"_ – pg. 232
+
+\* _(...you need a release operation \[or stronger\] to get a happens-before relationship between threads.)_
+
+\*\* _(...you must have an operation that’s `std::memory_order_acquire` or stronger before the access to `next_`.)_
+
+> _"...you need to ensure that `.swap()` happens before the `delete` in order to avoid a data race.</br></br>The easy way to do this is to make the fetch_add() in the successful-return branch use std::memory_ order_release and the fetch_add() in the loop-again branch use std::memory_order _acquire."_ – pg. 234
+
+[ordered_bake.cpp](ordered_bake.cpp)
+
+The following programme works (with our amended if statement condition), but not consistently - every so often we come up against a bad access, so somekind of race condition must be happening (there's also mention of a mutex lock in the assembly of this 2013 MacBook Pro?).
+
+Saying that, with thread sanatiser running, it doesn't seem to be highlighting any race conditions.
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
