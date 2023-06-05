@@ -287,6 +287,14 @@ Similar kind of setup, only this time round we follow a _FIFO_ pattern (First-in
 
 [lf_queue.cpp](lf_queue.cpp)
 
+It's worth noting, however, that this implenetation will result in race conditions when either `.push()` or `.pop()` are called concurrently.
+
+> _"both \[calls to `.push()`\] read the same value for `tail_`, and consequently both update the data members of the same node when setting the `data_` and `next_` pointers – this is a data race!"_ – pg. 238
+
+I'm going to see if the following statement applies with the succinct `std::shared_ptr<>` method used earlier.
+
+[race-free_lf_queue_test.cpp](race-free_lf_queue_test.cpp)
+
 #
 ### "Single-producer, single-consumer"
 Whilst a mouthful, this is quite a powerful statement in terms of synchronisation.
