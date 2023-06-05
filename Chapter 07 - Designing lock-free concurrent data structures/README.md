@@ -281,6 +281,18 @@ The following programme works (with our amended if statement condition), but not
 
 Saying that, with thread sanatiser running, it doesn't seem to be highlighting any race conditions.
 
+#
+### Lock-free queue
+Similar kind of setup, only this time round we follow a _FIFO_ pattern (First-in, First-Out), instead of the stack's _FILO_ pattern.
+
+[lf_queue.cpp](lf_queue.cpp)
+
+#
+### "Single-producer, single-consumer"
+Whilst a mouthful, this is quite a powerful statement in terms of synchronisation.
+
+> _"The important thing in that case is the happens-before relationship between the `.push()` and the `.pop()`"...</br></br>"...the store to `tail_` synchronises with the `.load()` from `tail_`..."</br>"...the `.store()` to the preceding node’s `data_` pointer sequenced before the `.store()` to `tail_`..."</br>"...and the `.load()` from `tail_` is sequenced before the `.load()` from the `data_` pointer..."</br>"..., so the `.store()` to `data_` happens before the `.load()`, and everything is OK.</br></br>This is therefore a perfectly-serviceable single-producer, single-consumer (SPSC) queue."_ – pg. 237-238
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
