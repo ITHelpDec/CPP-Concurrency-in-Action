@@ -311,6 +311,12 @@ Another option is to make `data_` atomic, and if `std::shared_ptr<>` is lock-fre
 
 [broken_push.cpp](broken_push.cpp)
 
+This only fixes one race, unfortunately, as if another thread updates and deallocates a node before we perform a dereferenxe then we end up with undefined behaviour.
+
+Looks like the "internal & external counters" approach is recommended again (a technique the author first encountered in Joe Seigh's work, "Atomic Ptr Plus").
+
+[pointer_plus.cpp](pointer_plus.cpp)
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
