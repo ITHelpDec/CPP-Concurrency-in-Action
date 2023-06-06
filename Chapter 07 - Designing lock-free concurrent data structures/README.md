@@ -293,7 +293,7 @@ It's worth noting, however, that this implenetation will result in race conditio
 
 I'm going to see if the following statement applies with the succinct `std::shared_ptr<>` method used earlier.
 
-[race-free_lf_queue_test.cpp](race-free_lf_queue_test.cpp)
+[ref-clamation_queue.cpp](ref-clamation_queue.cpp)
 
 #
 ### "Single-producer, single-consumer"
