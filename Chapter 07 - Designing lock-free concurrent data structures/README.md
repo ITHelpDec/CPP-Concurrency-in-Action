@@ -295,11 +295,21 @@ I'm going to see if the following statement applies with the succinct `std::shar
 
 [ref-clamation_queue.cpp](ref-clamation_queue.cpp)
 
+> _", ...in order to get the required happens-before relationship between `.push()` and `.pop()`, you need to set the data items on the dummy node before you update `tail_` (although this leads to data races with concurrent calls to `.push()` because theyve read the same `tail_` pointer."_
+
 #
 ### "Single-producer, single-consumer"
 Whilst a mouthful, this is quite a powerful statement in terms of synchronisation.
 
 > _"The important thing in that case is the happens-before relationship between the `.push()` and the `.pop()`"...</br></br>"...the store to `tail_` synchronises with the `.load()` from `tail_`..."</br>"...the `.store()` to the preceding node’s `data_` pointer sequenced before the `.store()` to `tail_`..."</br>"...and the `.load()` from `tail_` is sequenced before the `.load()` from the `data_` pointer..."</br>"..., so the `.store()` to `data_` happens before the `.load()`, and everything is OK.</br></br>This is therefore a perfectly-serviceable single-producer, single-consumer (SPSC) queue."_ – pg. 237-238
+
+#
+### In-between dummies
+Adding a dummy node between the real nodes allows us to make `next_` atomic - this would lead to twice as many memory allocations, though (pg. 238).
+
+Another option is to make `data_` atomic, and if `std::shared_ptr<>` is lock-free then job's a good'un. Otherwise, we can return `.pop()` as a `std::unique_ptr<>` and store the `data_` as a plain pointer in the queue (thus allowing for `std::atomic<T*>` and `.compare_exchange_strong()`).
+
+[broken_push.cpp](broken_push.cpp)
 
 ### ...work in progress
 #
