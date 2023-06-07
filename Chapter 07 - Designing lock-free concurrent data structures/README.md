@@ -349,6 +349,12 @@ https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/648f26dcc4656eba58ce
 
 I've put up a PR [here](https://github.com/anthonywilliams/ccia_code_samples/pull/38) and linked back to the posts to give credit to the authors of the comments.
 
+#
+### Final product
+Looks like we're at the finish line (I'll assume it works properly and maybe test later).
+
+[pointer_plus_done.cpp](pointer_plus_done.cpp)
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
