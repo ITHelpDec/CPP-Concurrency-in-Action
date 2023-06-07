@@ -93,7 +93,7 @@ private:
                new_counter = old_counter;
                --new_counter.internal_count_;
            } while (!count_.compare_exchange_strong(old_counter, new_counter,
-                                                    std::memory_order_acquire, std::memory_order_relaxed));
+                                                    std::memory_order_acq_rel, std::memory_order_relaxed));
            
            if (!new_counter.internal_count_ && !new_counter.external_counters_) { delete this; }
        }
