@@ -325,6 +325,30 @@ https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/2251e079c70287a16e91
 
 > _"It’s important to update these counts together as a single entity in order to avoid race conditions, ..."_ – pg. 241
 
+There must be a better way to word this...still not really sure what it's trying to get at.
+> _"The node is initialised with the `internal_count_` set to `0` and the `external_counters_` set to `2`, because every new node starts out referenced from `tail_` and from the `next_` pointer of the previous node once you’ve added it to the queue"_ – pg. 241
+
+We now add the pop feature, but it still doesn't work, so we'll see how things progress with the count implementations.
+
+[pointer_plus_pop.cpp](pointer_plus_pop.cpp)
+
+I'm also unsure why the author chose `std::memory_order_acquire` for `.compare_exchange_strong()` when `std::memory_order_release` seems to be the norm with this kind of instruction. In fact, there are quite a few discussions [here](https://stackoverflow.com/questions/55704567/how-to-understand-calling-compare-exchange-strong-with-stdmemory-order-acquire) and [here](https://stackoverflow.com/questions/74127715/why-are-these-memory-orders-applied-here-in-the-implementation-of-the-lock-free) suggesting potential data races found using thread sanitiser.
+
+https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/02d478ec8b3a334b7a006845f532c06a8e504930/Chapter%2007%20-%20Designing%20lock-free%20concurrent%20data%20structures/pointer_plus_pop.cpp#L95-L96
+
+There's even a Godbolt link [here](https://godbolt.org/z/1n4f4ceTz) with the issues, and I've made the amendments suggested in the thread [here](https://godbolt.org/z/73TMd8Pnz) with `std::memory_order_acq_rel` - no data races.
+
+The explanation from the stack exchange is actually really good.
+
+> _"We read the object `*ptr` before the `.compare_exchange` (to get `ptr->count`).</br>But since the `.compare_exchange` is not `release`, the read of `*ptr` could in theory be reordered after it.</br>If so, then by the time the read of `*ptr` happens, the counter has already been decremented, and in the meantime some other thread might have decremented it again and then done `delete ptr`."_
+
+The author of the comment then goes on to say:
+> _"I think these can be fixed by upgrading the compare-exchanges to `acq_rel`.</br>That should ensure that all accesses to `*ptr` happen before its deletion. In fact, as you point out, we only need the `acquire` ordering in the case that the count has become zero, since it's only the `delete ptr` that must be protected from reordering before the `compare_exchange`. You could do that by having just `release` ordering on the `compare_exchange`, and putting an `acquire` fence inside the `if` block, just before `delete ptr`"_
+
+https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/648f26dcc4656eba58ce70020c4b289e4d227a6a/Chapter%2007%20-%20Designing%20lock-free%20concurrent%20data%20structures/pointer_plus_pop.cpp#L95-L96
+
+I've put up a PR [here](https://github.com/anthonywilliams/ccia_code_samples/pull/38) and linked back to the posts to give credit to the authors of the comments.
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
