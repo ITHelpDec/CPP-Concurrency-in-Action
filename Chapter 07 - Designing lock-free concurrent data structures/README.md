@@ -317,6 +317,14 @@ Looks like the "internal & external counters" approach is recommended again (a t
 
 [pointer_plus.cpp](pointer_plus.cpp)
 
+This example is half-baked again though, with three functions not even declared, and even when they are, the programme crashes - we'll see if the gaps are filled later in the chapter.
+
+The bit field approach is interesting, aiming to keep the total counter size to 32 bits to fit inside a typical DWORD for 32- and 64-bit machines.
+
+https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/2251e079c70287a16e91ea4d076c5c3b90d04922/Chapter%2007%20-%20Designing%20lock-free%20concurrent%20data%20structures/pointer_plus.cpp#L48-L51
+
+> _"It’s important to update these counts together as a single entity in order to avoid race conditions, ..."_ – pg. 241
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
