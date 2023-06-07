@@ -1,5 +1,5 @@
 #include <iostream>
- 
+
 namespace lf {
 template <typename T>
 class queue {
@@ -79,18 +79,15 @@ private:
     }
 };
 }
- 
- int main()
-{
-     lf::queue<int> q;
-     
-     q.push(1);
-     
-     return 0;
- }
 
-// Thread 1: EXC_BAD_ACCESS (code=1, address=0x0)
-// template<class _Tp>
-// _LIBCPP_INLINE_VISIBILITY
-// bool __cxx_atomic_compare_exchange_strong(__cxx_atomic_base_impl<_Tp> * __a, _Tp* __expected, _Tp __value, memory_order __success, memory_order __failure) _NOEXCEPT {
-//     return __c11_atomic_compare_exchange_strong(&__a->__a_value, __expected, __value, static_cast<__memory_order_underlying_t>(__success), static_cast<__memory_order_underlying_t>(__to_failure_order(__failure)));
+int main()
+{
+    lf::queue<int> q;
+    
+    q.push(1);
+    
+    int x = 2;
+    q.push(x);
+    
+    return 0;
+}
