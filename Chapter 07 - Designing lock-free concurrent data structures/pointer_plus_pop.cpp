@@ -120,9 +120,9 @@ int main()
 {
     lf::queue<int> q;
     
+    q.push(1);
+    
     q.pop();
     
     return 0;
 }
-
-// still doesn't run
