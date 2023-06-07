@@ -4,6 +4,11 @@ namespace lf {
 template <typename T>
 class queue {
 public:
+    queue() : head_({ 2, new node}), tail_(head_.load()) { }
+    
+    queue(const queue&) = delete;
+    queue& operator=(const queue&) = delete;
+ 
     template <typename V>
     void push(V &&val)
     {
