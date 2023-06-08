@@ -361,7 +361,28 @@ Yet again, though, this implementation is incomplete and isn't actually lock-fre
 
 From a reader's point of view, I'm getting a little bored of the "here's how not to do it" examples - as interesting an exercise as it is, _**practice makes permanent**_, and so far 80-90% of the practice has been creating containers with data races and undefined behaviour. My argument would be that if we want to instill good practices from the get-go, then we should be spending 80-90% of our time writing code _**without**_ data races and undefined behaviour, then dedicate a little bit of time on how to break the rules.
 
-I know we still have a few chaptes left, but I also think it would be a good idea to dedicate a small portion of the book on how to use thread sanitiser to help spot or even visualise these kinds of data races.
+I know we still have a few chapters left, but I also think it would be a good idea to dedicate a small portion of the book on how to use thread sanitiser to help spot or even visualise these kinds of data races.
+
+#
+### Helper threads
+> _"..., you know exactly what needs to be done: the `next_` pointer on the `tail_` node needs to be set to a new dummy node, and then the `tail_` pointer itself must be updated."_ – pg. 244
+
+> _"If you make the `next_` pointer in a node atomic, you can then use `.compare_exchange_strong()` to set the pointer.</br>Once the `next_` pointer is set, you can then use a `.compare_exchange_ weak()` loop to set the `tail_` while ensuring that it’s still referencing the same original node.</br>If it isn’t, someone else has updated it, and you can stop trying and loop again."_ – pg. 245
+
+[listing_7-21.cpp](listing_7-21.cpp)
+
+Thanks to [Nate Eldridge](https://stackoverflow.com/users/634919/nate-eldredge) for his Godbolt _producer / consumer_ layout - I used this in the last example, but found a peculiar error within Xcode regarding "nano zone" when trying to run the code with Thread Sanitiser on:
+```bash
+07 - Designing lock-free concurrent data structures(22505,0x1ec411e00) malloc:
+nano zone abandoned due to inability to reserve vm space.
+```
+After a bit of research, a [very helpful person](https://shapeof.com/archives/2015/10/mallocnanozone.html) suggested modifying `MallocNanoZone` to `0` as part of our "Environment Variables" - a quick way to get there is to use `⌘` + `⇧` + `,` and then enter the following parameter:
+```bash
+MallocNanoZone=0
+```
+<img width="934" alt="malloc_nano_zone" src="https://github.com/ITHelpDec/CPP-Concurrency-in-Action/assets/34002836/ae3647bc-a9e6-4e22-bfc3-745ca1401c8b">
+
+It also seemed important to clearly define our `node` constructor with `.store()` operations for the atomic member variables, otherwise Godbolt would hang and return a `143` error.
 
 ### ...work in progress
 #
