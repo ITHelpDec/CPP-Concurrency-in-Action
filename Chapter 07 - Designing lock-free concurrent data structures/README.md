@@ -355,6 +355,14 @@ Looks like we're at the finish line (I'll assume it works properly and maybe tes
 
 [pointer_plus_done.cpp](pointer_plus_done.cpp)
 
+> _"If both the values are now zero, there are no more references to the node, so it can be safely deleted"_ – pg. 244
+
+Yet again, though, this implementation is incomplete and isn't actually lock-free.
+
+From a reader's point of view, I'm getting a little bored of the "here's how not to do it" examples - as interesting an exercise as it is, _**practice makes permanent**_, and so far 80-90% of the practice has been creating containers with data races and undefined behaviour. My argument would be that if we want to instill good practices from the get-go, then we should be spending 80-90% of our time writing code _**without**_ data races and undefined behaviour, then dedicate a little bit of time on how to break the rules.
+
+I know we still have a few chaptes left, but I also think it would be a good idea to dedicate a small portion of the book on how to use thread sanitiser to help spot or even visualise these kinds of data races.
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
