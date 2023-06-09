@@ -384,8 +384,53 @@ MallocNanoZone=0
 
 It also seemed important to clearly define our `node` constructor with `.store()` operations for the atomic member variables, otherwise Godbolt would hang and return a `143` error.
 
-### ...work in progress
+> _"In this example, you’re using the default `std::memory_order_seq_cst` ordering, so you could omit the explicit call to `.load()` and rely on the load in the implicit conversion to `counted_node_ptr`, but putting in the explicit call reminds you where to add the explicit memory ordering later."_ – pg. 245
+
 #
-### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
+### Faulty push
+Again, to reiterate, our last `.push()` function was fualty, so the updated version is below:
+
+[listing_7-22.cpp]([listing_7-22.cpp)
+
+...[and it still doesn't work properly](https://godbolt.org/z/W8PMP67z4)...I'm really starting to lose the will with this book...
+
+The constructor in `node` that fixed our issue before now causes an issue when we try to amend it with the new push function.
+
+I've tried debugging, but not having any luck at all - if anyone has suggestions, feel free.
+
+> _"Common techniques for optimizing memory allo- cation include having a separate memory allocator on each thread and using free lists to recycle nodes rather than returning them to the allocator."_ – pg. 247
+
+#
+### Guidelines for creating lock-free data structures
+1) **_Use `std::memory_order_seq_cst` for prototyping_**
+> _"In general, you can only determine which operations can be relaxed when you can see the full set of code that can operate on the guts of the data structure."_ – pg. 248
+
+2) **_Use a lock-free memory reclamation scheme_**
+> _"It’s essential to avoid deleting objects when other threads might still have references to them, but you still want to delete the object as soon as possible in order to avoid excessive mem- ory consumption."_ – pg. 248
+
+We can do this by waiting for threads to stop accessing the container and deleting all elements pending deletion, using hazard pointers or reference counting.
+
+> _"It’s much easier to write the algorithms if you know that the garbage collector will free the nodes when they’re no longer used, but not before."_ – pg. 248
+
+We cam also recycle nodes, which helps with avoiding undefined behaviour (the memory never becomes invalid), but this can also lead to the [_ABA_ problem](https://www.infoq.com/news/2014/10/cpp-lock-free-programming/).
+
+3) **_Avoid the ABA problem_**
+> _"The most common way to avoid this problem is to include an ABA counter alongside the variable x."_ – pg. 249
+
+> _"The ABA problem is particularly prevalent in algorithms that use free lists or other- wise recycle nodes rather than returning them to the allocator."_ – pg. 249
+
+4) **Identify busy-wait loops and help the other thread_**
+> _"If you end up with a busy-wait loop, you effectively have a blocking operation and might as well use mutexes and locks."_ – pg. 249
+
+### Summary
+This chapter had so much potential, but it was so poorly-put-together that I geneuinely couldn't wait to finish it
+
+Whilst the beginning taught me a lot about using smart pointers and atomics to create lock-free (and sometimes wait-free) containers, I spent more time writing both incorrect and incomplete code that I don't think the author really properly tested.
+
+This made the whole chapter feel more like marking someone's homework than actually learning about lock-free data structures.
+
+I really like the concept of atomics and lock-free programming, through, and after watching quite a few talks from Herb Sutter and Fedor Pikus, I'd like to become more proficient with writing better lock-free / wait-free code.
+
+Next up is worrying less about the synchronisation and more about the manipulation of data itself.
 
 <a href="https://www.buymeacoffee.com/ITHelpDec"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=ITHelpDec&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" /></a>
