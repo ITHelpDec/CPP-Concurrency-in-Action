@@ -31,6 +31,11 @@ We have similar issues using our lock-free "ref-clamation" stack from the previo
 
 [lf_stack_sorter.cpp](lf_stack_sorter.cpp)
 
+I spent far too long putting these examples together after the PR, but I wanted to make sure I was able to move on with functioning code samples.
+
+---
+On a personal note...
+
 > _"As with most of the examples, this is intended to demonstrate an idea rather than being production-ready code.""
 
 ...from pg. 255 really isn't good enough - no book should be published with this many mistakes and bad practices under the guise of it not being "production-ready".
