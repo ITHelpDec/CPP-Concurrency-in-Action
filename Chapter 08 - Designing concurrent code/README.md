@@ -42,6 +42,54 @@ On a personal note...
 
 It's instructional, and as such should not only compile and run, but run as intended.
 
+#
+### Time to specialise
+> _"An alternative to dividing the work is to make the threads specialists, where each per- forms a distinct task, just as plumbers and electricians perform distinct tasks when building a house."_ – pg. 258
+
+> _"There are two big dangers with separating concerns with multiple threads. The first is that you’ll end up separating the wrong concerns."_ – pg. 259
+
+> _"if two threads are communicating a lot with each other but much less with other threads, maybe they should be combined into a single thread."_ – pg. 259
+
+#
+### Pipelines
+
+> _"If your task consists of applying the same sequence of operations to many independent data items, you can use a pipeline..."_ – pg. 259
+
+There's a lot of waffle in these pages...
+
+#
+### `std::thread::hardware_concurrency()`
+One reason to opt for `std::async` (or careful use of thread pools):
+> _"Using `std::thread::hardware_concurrency()`...your code doesn’t take into account any of the other threads that are running on the system unless you explicitly share that information."_ – pg. 261
+
+#
+### Contention
+> _"If two threads are executing concurrently on different processors and they’re both reading the same data, this usually won’t cause a problem; the data will be copied into their respective caches, and both processors can proceed."</br>"But if one of the threads modifies the data, this change then has to propagate to the cache on the other core, which takes time."_ – pg. 262
+
+Blah, blah, blah, cores waiting on each other = contention, happens with mutexes, etc., etc., etc., ...
+
+The author is suggesting a lot of "here's a thing, but here's a problem, and you probably won't resolve this problem, so you're stuck with it" - thing is, though, I don't want just problems; I want best practices.
+
+#
+### False sharing
+Cache lines are (currently) typically 32 or 64 bytes wide.
+
+Set of data access by thread on same cache line? Está bien.
+
+Unrelated data items on cache lines to be accessed by different threads? No bueno.
+
+Thread wants to changes value on cache line? Takes onwership, then transfers ownership to next thread.
+
+> _"The cache line is shared, even though none of the data is, hence the term false sharing"_ – pg. 264
+
+Solution? Put same thread items on same cache line.
+
+We see reference to `std::hardware_destructive_interference_size` again (like from C++ High Performance [here](https://github.com/ITHelpDec/CPP-High-Performance/blob/f54fe8caafddb709765e576b89b2d78bef14e3a3/Chapter%2011%20-%20Concurrency/README.md) and [here](https://github.com/ITHelpDec/CPP-High-Performance/blob/f54fe8caafddb709765e576b89b2d78bef14e3a3/Chapter%2011%20-%20Concurrency/false_sharing.cpp)).
+
+Again, more waffle...more threads than cores = _task switching_...increased pressure on cache...reference to the aforementioned's counterpart (`std::hardware_constructive_interference_size` - max number of consecutive bytes guaranteed to be on the same cache line).
+
+We're like 10 pages in now - less talky, more code-y...
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
