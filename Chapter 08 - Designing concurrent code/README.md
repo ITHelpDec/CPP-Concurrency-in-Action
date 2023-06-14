@@ -90,6 +90,47 @@ Again, more waffle...more threads than cores = _task switching_...increased pres
 
 We're like 10 pages in now - less talky, more code-y...
 
+#
+### Oversubscription
+> _"Oversubscription can arise when you have a task that repeatedly spawns new threads without limits, .."_ – pg. 266
+
+#
+### "Designing data structures for multi-threaded performance"
+This is addressed, but I'm  still not sure why this is appearing again, considering we've spent the last two chapter doing this with lock-based and lock-free approach.
+
+Regardless, three things to bear in mind when designing our data structures are:
+* contention
+* false sharing
+* data proximity
+
+#
+### Matrices
+We have the classic matrix multiplication crux.
+
+> _"...it’s clear that you ought to be accessing adjacent columns, so the N elements from each row are adjacent, and you minimize false sharing."_
+
+We can invert the x by y approach to avoid cache-thrashing like we've done before ([here](https://github.com/ITHelpDec/CPP-Primer) and [here](https://github.com/ITHelpDec/CPP-High-Performance/blob/f54fe8caafddb709765e576b89b2d78bef14e3a3/Chapter%2004%20-%20Data%20Structures/loop_interchange.cpp#L19)), but I'm hoping we'll take a multi-threaded approach to this.
+
+> _"If the space occupied by your N elements is an exact number of cache lines, there’ll be no false sharing because threads will be working on separate cache lines."_ – pg. 268
+
+> _"On the other hand, if you have each thread compute a set of rows, ...it has a contiguous block of memory that’s not touched by any other thread."_ – pg. 268
+
+> _"Dividing into rectangular blocks...has the same false-sharing potential as division by columns."_ – pg. 268
+
+The example used is a 1,000 x 1,000 matrix (1,000,000 elements) across 100 processors:
+
+10 rows each get us to 10,000, but to calculate those 10,000 results we need access to the entirety of the second matriax (another 1,000,000 elements) - total of 1,010,000 elements.
+
+However...if we do 100 x 100 blocks (still 10,000 elements), the accesses are 100 from one matrix (100 x 1,000) and 100 from another.
+
+This is 200,000 in total, and 200,000 vs 1,010,000 is a 5x reduction in reads.
+
+Fewer reads means less likelihood of cache misses.
+
+Great theory, but it would have nice to see actual code - again, "less talky, more codey".
+
+> _"...look at all the aspects of the data access patterns carefully, and identify the potential causes of performance hits."_ – pg. 269
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
