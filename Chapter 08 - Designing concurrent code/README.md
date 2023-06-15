@@ -178,9 +178,9 @@ We can allow exceptions to propogate to the caller in sequential algorithms - we
 
 > _"If a function spawned on a new thread exits with an exception, the application is terminated."_ – pg. 271
 
-We can see this with the `std::accumulate` example from chapter 2:
+We can see this with the `std::accumulate` example supplied in the book (although, yet again, [another PR](https://github.com/anthonywilliams/ccia_code_samples/pull/41) was needed for code that doesn't look like it was tested):
 
-[seq_accumulate.cpp](seq_accumulate.cpp)
+[par_accumulate.cpp](par_accumulate.cpp)
 
 ### ...work in progress
 #
