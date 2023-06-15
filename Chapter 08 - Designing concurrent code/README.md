@@ -130,6 +130,43 @@ Fewer reads means less likelihood of cache misses.
 Great theory, but it would have nice to see actual code - again, "less talky, more codey".
 
 > _"...look at all the aspects of the data access patterns carefully, and identify the potential causes of performance hits."_ – pg. 269
+ 
+#
+### Data access pattern considerations
+* Ensure contiguous data is worked on by the same thread
+* Minimise data required by any given thread
+* Ensure data accessed by separate threads is sufficiently far apart to avoid false sharing (`std::hardware_destructive_interference_size` will help with this)
+
+> _"...having data end up in different places on the heap isn’t a particular problem in itself, but it does mean that the processor has to keep more things in cache - this can be beneficial"_ – pg. 269
+
+There's a good piece of info on using pointers in a tree with threads.
+
+> _"If multiple threads need to traverse the tree, then they all need to access the tree nodes, but if the tree nodes only contain pointers to the real data held at the node, then the processor only has to load the data from memory if it’s needed."</br>"If the data is being modified by the threads that need it, this can avoid the performance hit of false sharing between the node data itself and the data that provides the tree structure."_ – pg. 269
+
+To reiterate what the author mentioned, if we're using mutexes, then it's a good idea if both the mutexes and data are in close proximity to each other, although there can be a performance hit if other threads try to lock the mutex while it's held by the first thread.
+
+#
+### "Cushion for the pushin" (of improved mulithreading performance)
+We can add large blocks of padding between mutexes and data members to test if either mutex contention of false sharing is affecting performance.
+```cpp
+template <typename T>
+struct mutex_contention {
+    std::mutex m_;
+    char padding[std::hardware_destructive_interference_size];
+    std::vector<T> data_;
+};
+
+template <typename T>
+struct false_sharing {
+    std::vector<T> v1;
+    std::vector<T> v2;
+    char padding[std::hardware_destructive_interference_size];
+};
+```
+I found out the hard way back in C++ High Performance that we can also use `_X86_INSTRUCTION_STATE_CACHELINE_SIZE` on Intel Mac's where `std::hardware_destructive_interference_size` commnand isn't available.
+```cpp
+char padding[_X86_INSTRUCTION_STATE_CACHELINE_SIZE * 1024];
+```
 
 ### ...work in progress
 #
