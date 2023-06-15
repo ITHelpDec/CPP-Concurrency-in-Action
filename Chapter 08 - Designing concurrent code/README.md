@@ -168,6 +168,20 @@ I found out the hard way back in C++ High Performance that we can also use `_X86
 char padding[_X86_INSTRUCTION_STATE_CACHELINE_SIZE * 1024];
 ```
 
+#
+### Scaling
+> _"Code is said to be scalable if the performance increases as more processing cores are added to the system"_ – pg. 270-271
+
+#
+### Exceptions
+We can allow exceptions to propogate to the caller in sequential algorithms - we can't in parallel algorithms because it would be on the wrong call stack.
+
+> _"If a function spawned on a new thread exits with an exception, the application is terminated."_ – pg. 271
+
+We can see this with the `std::accumulate` example from chapter 2:
+
+[seq_accumulate.cpp](seq_accumulate.cpp)
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
