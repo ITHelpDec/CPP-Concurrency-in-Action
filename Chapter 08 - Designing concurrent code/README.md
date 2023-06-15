@@ -182,6 +182,14 @@ We can see this with the `std::accumulate` example supplied in the book (althoug
 
 [par_accumulate.cpp](par_accumulate.cpp)
 
+The first exception to watch out for is in the construction of our threads (same goes for `accumulate_block`:
+
+> _"...the destructors of your new `std::thread` objects will call `std::terminate` and abort your programme."_ – pg. 272
+
+We can use `std::packaged_task` to help handle our exception dilemma.
+
+[packaged_accumulate.cpp](packaged_accumulate.cpp)
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
