@@ -190,6 +190,8 @@ We can use `std::packaged_task` to help handle our exception dilemma.
 
 [packaged_accumulate.cpp](packaged_accumulate.cpp)
 
+Having re-written this example, I don't know if can take this book seriously any more - the amount of mistakes is just mental...I've uploaded another PR [here](https://github.com/anthonywilliams/ccia_code_samples/pull/42) and decided to introduce some range-based `for` loops to sync our threads and futures (not sure why index-based for loops were still considered a good idea in 2017).
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
