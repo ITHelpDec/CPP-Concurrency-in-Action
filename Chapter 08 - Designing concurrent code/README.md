@@ -199,12 +199,13 @@ After rewriting and correcting this many examples, I don't know if can take this
 We can also use a `try / catch` to handle any exceptions between when we spawn the first thread and when we join them back to main (but it's ugly, expensive and repeats code).
 ```cpp
 try {
-    for (auto &f : futures) { f.get(); }
+    for (int i = 0; i != num_threads - 1; ++i)
+        // ...
     __Tp last_result = accumulate_block<__ForwardIt,__Tp>()(block_start, last);
     for (auto &t : threads) { t.join(); }
 } catch (...) {
     for (auto &t : threads)
-        if (t.joinable) { t. join(); }
+        if (t.joinable()) { t. join(); }
     throw;
 }
 ```
