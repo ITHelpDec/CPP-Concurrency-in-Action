@@ -219,6 +219,8 @@ The author suggests wrapping the joins in a class as an idiomatic way of tidying
 
 [async_accumulate.cpp](async_accumulate.cpp)
 
+My one question was whether or not to pass the capture list by ref or value given the concurrent nature of the function, it looks like the function only reads (doesn't write), so it doesn't look like the preconditions are met to invoke a data race if we were to pass by reference (I hope) - feedback and corrections welcome.
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
