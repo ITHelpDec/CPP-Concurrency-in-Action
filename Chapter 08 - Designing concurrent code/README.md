@@ -209,9 +209,15 @@ try {
     throw;
 }
 ```
-The author suggests wrapping the joins in a class as an idiomatic way of tidying resource.
+The author suggests wrapping the joins in a class as an idiomatic way of tidying resource (although, in hindsight, is this not what `std::jthread` does?).
 
 [exception_safe_accumulate.cpp](exception_safe_accumulate.cpp)
+
+#
+### Avoiding leaked threads with `std::async`
+> _"The key thing to note for exception safety is that if you destroy the future without waiting for it, the destructor will wait for the thread to complete."_
+
+[async_accumulate.cpp](async_accumulate.cpp)
 
 ### ...work in progress
 #
