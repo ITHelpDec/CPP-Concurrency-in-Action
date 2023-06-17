@@ -192,6 +192,26 @@ We can use `std::packaged_task` to help handle our exception dilemma.
 
 After rewriting and correcting this many examples, I don't know if can take this book seriously any more - the amount of mistakes is just mental...I've uploaded another PR [here](https://github.com/anthonywilliams/ccia_code_samples/pull/42) and decided to introduce some range-based `for` loops to sync our threads and futures (not sure why index-based for loops were still considered a good idea in 2017).
 
+> _"You’re using std::packaged_task and std::future for the exception safety, ..."_ – pg. 274
+
+> _"So, that’s removed one of the potential problems: exceptions thrown in the worker threads are rethrown in the main thread...you can use something like `std::nested_exception` to capture all the exceptions and throw that instead."_ – pg. 274
+
+We can also use a `try / catch` to handle any exceptions between when we spawn the first thread and when we join them back to main (but it's ugly, expensive and repeats code).
+```cpp
+try {
+    for (auto &f : futures) { f.get(); }
+    __Tp last_result = accumulate_block<__ForwardIt,__Tp>()(block_start, last);
+    for (auto &t : threads) { t.join(); }
+} catch (...) {
+    for (auto &t : threads)
+        if (t.joinable) { t. join(); }
+    throw;
+}
+```
+The author suggests wrapping the joins in a class as an idiomatic way of tidying resource.
+
+[exception_safe_accumulate.cpp](exception_safe_accumulate.cpp)
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
