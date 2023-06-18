@@ -219,7 +219,21 @@ The author suggests wrapping the joins in a class as an idiomatic way of tidying
 
 [async_accumulate.cpp](async_accumulate.cpp)
 
-My one question was whether or not to pass the capture list by ref or value given the concurrent nature of the function, it looks like the function only reads (doesn't write), so it doesn't look like the preconditions are met to invoke a data race if we were to pass by reference (I hope) - feedback and corrections welcome.
+My one question was whether or not to pass the capture list by ref or value given the concurrent nature of the function - it looks like the function only reads (doesn't write), so it doesn't look like the preconditions are met to invoke a data race if we were to pass by reference (I hope) - feedback and corrections welcome.
+
+#
+### More scaling
+> _"Threads often spend time waiting for each other or waiting for I/O operations to complete."_ – pg. 278
+
+> _"Every time one thread has to wait for something (whatever that something is), unless there’s another thread ready to take its place on the processor, you have a processor sitting idle that could be doing useful work."_ – pg. 278
+
+I suppose this is a reason why `std::this_thread::yield` is so important.
+
+We have reference to Amdahl's law, which I covered in C++ High Performance [here](https://github.com/search?q=repo%3AITHelpDec%2FCPP-High-Performance%20amdahl&type=code); the same things apply - reduce "serial" components, reduce wait time and / or increase data provided to parallel sections.
+
+$$ Overall\text{ }speedup = {1 \over (1 - p) + {p \over s}} $$
+
+$$ Maximum\text{ }speedup = { 1 \over { {F}_ {par} \over n } + (1 - {F}_ {par} ) } $$
 
 ### ...work in progress
 #
