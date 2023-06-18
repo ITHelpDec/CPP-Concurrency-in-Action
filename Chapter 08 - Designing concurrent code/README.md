@@ -262,6 +262,8 @@ Previous issues with things like GUI's:
 
 [separate_gui.cpp](separate_gui.cpp)
 
+For real, though - listing 8.6 is a hot mess; far too many sketches and not enough actual functioning code...if you're not going to write it in the book, at least include it in the online code samples.
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
