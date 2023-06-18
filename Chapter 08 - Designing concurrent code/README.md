@@ -264,6 +264,14 @@ Previous issues with things like GUI's:
 
 For real, though - listing 8.6 is a hot mess; far too many sketches and not enough actual functioning code...if you're not going to write it in the book, at least include it in the online code samples.
 
+#
+### `par::for_each`
+> _"...with a parallel implementation there’s no guarantee as to the order in which the elements will be processed, ..."_ – pg. 282
+
+Pretty similar implementation to our `std::async` accumulate - albeit the author has decided to use a lambda function this time round like we did, passing by value instead of by ref, however, so I'll assume that's the safer way to do it.
+
+[par_for_each.cpp](par_for_each.cpp)
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
