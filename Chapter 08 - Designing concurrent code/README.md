@@ -235,6 +235,33 @@ $$ Overall\text{ }speedup = {1 \over (1 - p) + {p \over s}} $$
 
 $$ Maximum\text{ }speedup = { 1 \over { {F}_ {par} \over n } + (1 - {F}_ {par} ) } $$
 
+#
+### Hiding latency with multiple threads
+Reasons why a thread might be blocked...
+* Waiting on I/O
+* Waiting to acquire a mutex
+* Waiting for another thread to complete an operation and notify a condition variable / populate a future
+* Sleeping
+
+> _", ...having blocked threads means you’re wasting CPU time."_ – pg. 279
+
+Potential solutions:
+* Use asynchronous I/O
+* Get waiting thread to perform operation (like in our lock-free queue)
+* If no thread has started the task, [start and perform the task on its own (extreme case)](https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/main/Chapter%2008%20-%20Designing%20concurrent%20code/lf_stack_sorter.cpp)
+
+> _"Rather than adding threads to ensure that all available processors are being used, sometimes it pays to add threads to ensure that external events are handled in a timely manner to increase the responsiveness of the system."_ – pg. 280
+
+#
+### Improving responsiveness
+> _"Most modern graphical user interface frameworks are event-driven;"_ – pg. 280
+
+Previous issues with things like GUI's:
+* Periodically suspend
+* Insert `get_event()` / `process()` functions into just-launched function
+
+[separate_gui.cpp](separate_gui.cpp)
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
