@@ -272,6 +272,10 @@ Pretty similar implementation to our `std::async` accumulate - albeit the author
 
 [par_for_each.cpp](par_for_each.cpp)
 
+We can make it more succinct like in listing 8.5 as well.
+
+[parrer_for_each.cpp](parrer_for_each.cpp)
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
