@@ -276,6 +276,17 @@ We can make it more succinct like in listing 8.5 as well.
 
 [parrer_for_each.cpp](parrer_for_each.cpp)
 
+#
+### `par::find`
+> _"For algorithms such as std::find, the ability to complete “early” is an important property and not something to squander."_ – pg. 285
+
+`std::promise` or `std::packaged_task`?
+> _"If you want to stop on the first exception (even if you haven’t processed all elements), you can use `std::promise` to set both the value and the exception."</br>"On the other hand, if you want to allow the other workers to keep searching, you can use `std::packaged_task`, store all the exceptions, and then rethrow one of them if a match isn’t found."_ – pg. 285
+
+After reading this, it makes more sense to opt for `std::promise` for this implementation.
+
+[par_find.cpp](par_find.cpp)
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
