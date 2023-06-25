@@ -336,6 +336,10 @@ void partial_sum(std::vector<int> &ivec) {
 }
 ```
 
+It'll be interesting to see how these other algorithms compare to something even as simple as above with $O(n)$ runtime - the author claims it runs as fast as $O(log(n))$ if there are as many cores as elements.
+
+[par_partial_sum.cpp](par_partial_sum.cpp)
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
