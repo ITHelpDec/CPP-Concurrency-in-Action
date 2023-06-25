@@ -307,6 +307,22 @@ Not an algorithm I've used very much (if at all), but I've attached as example b
 
 [std_partial_sum.cpp](std_partial_sum.cpp)
 
+To parallelise, we can split into chunks and add the tail elements of the previous chunk to the current chunk, e.g.
+```cpp
+{ 1, 2, 3, 4, 5, 6, 7, 8, 9 }
+```
+...becomes...
+```cpp
+{ 1, 2, 3 }, { 4, 5,  6 }, { 7,  8,  9 }
+{ 1, 3, 6 }, { 4, 9, 15 }, { 7, 15, 24 }
+
+// 6 is the last of chunk 1 - add 6 to chunk 2
+{ 1, 3, 6 }, { 10, 15, 21 }, { 7, 15, 24 }
+
+// 21 is the last of chunk 2 - add 21 to chunk 3
+{ 1, 3, 6 }, { 10, 15, 21 }, { 28, 36, 45 } // book says 55?...
+```
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
