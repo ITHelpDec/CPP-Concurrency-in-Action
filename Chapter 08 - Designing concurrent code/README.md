@@ -295,6 +295,10 @@ Added a small benchmark to compare performance against `std::find` and it's mixe
 
 [par_async_find.cpp](par_async_find.cpp)
 
+This is much cleaner than explicitly setting threads, and makes use of a helper function to separate the implementation and `std::atomic<bool>` from the main expected `par::find(c.begin(), c.end(), t)`-type structure.
+
+There must be a better way to implement it though without `try / catch` blocks.
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
