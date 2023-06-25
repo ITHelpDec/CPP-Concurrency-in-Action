@@ -322,6 +322,19 @@ To parallelise, we can split into chunks and add the tail elements of the previo
 // 21 is the last of chunk 2 - add 21 to chunk 3
 { 1, 3, 6 }, { 10, 15, 21 }, { 28, 36, 45 } // book says 55?...
 ```
+Issue raised [here](https://github.com/anthonywilliams/ccia_code_samples/issues/43) to highlight incorrect calculation in book.
+
+...and a simple dynamic programming approach might be the following if we were to ignore iterators.
+```cpp
+void partial_sum(std::vector<int> &ivec) {
+    if (ivec.empty())    { return; }
+    if (ivec.size() < 2) { return ivec[0]; }
+ 
+    for (int i = 1; i != ivec.size(); ++i) {
+        ivec[i] += ivec[i - 1];
+    }
+}
+```
 
 ### ...work in progress
 #
