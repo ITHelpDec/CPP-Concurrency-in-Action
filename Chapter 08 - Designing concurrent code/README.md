@@ -287,6 +287,14 @@ After reading this, it makes more sense to opt for `std::promise` for this imple
 
 [par_find.cpp](par_find.cpp)
 
+Added a small benchmark to compare performance against `std::find` and it's mixed results - I may try again with Google Benchmark to see if there's any difference.
+
+> _"...if a thread calling find_element either finds a match or throws an exception, all other threads will see done_flag set and will stop."_ – pg. 287
+
+> _"If multiple threads find a match or throw at the same time, they’ll race to set the result in the promise. But this is a benign race condition; ..."_ – pg. 287
+
+[par_async_find.cpp](par_async_find.cpp)
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
