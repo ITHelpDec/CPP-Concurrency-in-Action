@@ -301,6 +301,12 @@ There must be a better way to implement it though without `try / catch` blocks.
 
 > _"A key feature...is that there’s no longer the guarantee that items are processed in the sequence that you get from `std::find`...<ins>**you can't process elements concurrently if the order matters**</ins>"_ – pg. 289
 
+#
+### `std::partial_sum`
+Not an algorithm I've used very much (if at all), but I've attached as example below - it looks like something that would work well in a dynamic programming question.
+
+[std_partial_sum.cpp](std_partial_sum.cpp)
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
