@@ -340,6 +340,8 @@ It'll be interesting to see how these other algorithms compare to something even
 
 [par_partial_sum.cpp](par_partial_sum.cpp)
 
+Another spectacle of _"not production ready == doesn't compile"_ with this listing, and when it does run, it crashse, so the version I've uploaded above works, and I've raised a PR [here](https://github.com/anthonywilliams/ccia_code_samples/pull/44) explaining what changes were needed to get the code to compile and run as intended.
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
