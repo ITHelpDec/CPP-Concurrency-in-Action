@@ -342,6 +342,14 @@ It'll be interesting to see how these other algorithms compare to something even
 
 Another spectacle of _"not production ready == doesn't compile"_ with this listing, and when it does run, it crashse, so the version I've uploaded above works, and I've raised a PR [here](https://github.com/anthonywilliams/ccia_code_samples/pull/44) explaining what changes were needed to get the code to compile and run as intended.
 
+A few mouthful sentences here that could have been shortened, but they seem noteworthy.
+> _"The main loop is the same as before, except this time you want the iterator that **points** to the last element in each block, rather than being the usual one past the end, so that you can do the forward propagation of the last element in each range"_ – pg. 293
+
+> _"After you’ve spawned the thread, you can update the block start, remembering to advance it past that last element, and store the future for the last value in the current chunk into the vector of futures so it will be picked up next time around the loop."_ – pg. 293
+
+Not sure on this one, though - `std::partial_sum` returns an `_OutputIterator`, in so far as Apple Clang goes.
+> _"std::partial_sum doesn’t return a value"_ – pg. 293
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
