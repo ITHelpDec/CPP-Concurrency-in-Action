@@ -350,6 +350,19 @@ A few mouthful sentences here that could have been shortened, but they seem note
 Not sure on this one, though - `std::partial_sum` returns an `_OutputIterator`, in so far as Apple Clang goes.
 > _"std::partial_sum doesn’t return a value"_ – pg. 293
 
+> _"If you are not the first chunk, then there was a previous_end_value from the previ- ous chunk, so you need to wait for that"_ – pg. 293
+
+> _"In order to maximize the parallelism of the algorithm, you then update the last element first"_ – pg. 293
+
+This seems quite important in regards to throwing and propogating exceptions.
+> _"Finally, if any of the operations threw an exception, you catch it and store it in the promise so it will propagate to the next chunk when it tries to get the previous end valuee."</br>"This will propagate all exceptions into the final chunk, which then rethrows, because you know you’re running on the main thread."_ – pg. 293
+
+#
+### Incremental pair-wise algorithm for partial sums
+> _"The idea is to keep the threads in lock- step"_ – pg. 294
+
+
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
