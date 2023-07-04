@@ -428,7 +428,17 @@ Another instance of incomplete code - my thanks go out to user [xxrlzzz](https:/
 
 [parrer_partial_sum.cpp](parrer_partial_sum.cpp)
 
-### ...work in progress
+I've attached a link to a PR [here](https://github.com/anthonywilliams/ccia_code_samples/issues/5) that addresses the issues in the code.
+
+### Summary
+This was a lengthy chapter - unfortunately, it was littered with what feels like more errors than previous chapters.
+
+There were some good topics covered e.g. false sharing, propogating exceptions with `std::promise` / `std::packaged_rask`, opting for `std::async` over `std::thread` to prevent leaky threads, and templates to parallel approaches for popular algorithms.
+
+It would have been nice to see more context around the likes of padding - the examples given felt a bit like "just chuck some padding in and see if it's better" instead of an educated way of making that decision.
+
+Let's see what the next chapter on thread pools is like.
+
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
 
