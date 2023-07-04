@@ -369,7 +369,59 @@ The author provides an implementation of a barrier, but we can also use `std::ba
 
 The author chooses to handle threads dropping out because it avoids threads doing unnecessary work (that's why we use atomic variables, to enable external syncrhonisation from multiple threads) - the use of atomic variables means we need to tweak the implementation slightly (not mentioned in the book).
 
-[slightly_updated_barrier.cpp](https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/c04c0bbfcdbb9756a959cc036c36b3428b51a646/Chapter%2008%20-%20Designing%20concurrent%20code/barrier.cpp) ([what's changed](https://github.com/ITHelpDec/CPP-Concurrency-in-Action/compare/dab2b33444d5db859bf52df27c6ba5ee8a526031...c04c0bbfcdbb9756a959cc036c36b3428b51a646))
+[slightly_updated_barrier.cpp](https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/833f264510a552b9bf811fedb9084d6c94ce3cd3/Chapter%2008%20-%20Designing%20concurrent%20code/barrier.cpp)
+
+<details>
+<summary><b>What's changed</b> - <i>(click to expand / collapse)</i></summary>
+
+</br>
+
+```diff
+diff --git a/Chapter 08 - Designing concurrent code/barrier.cpp b/Chapter 08 - Designing concurrent code/barrier.cpp
+index 903cf43..c2509f5 100644
+--- a/Chapter 08 - Designing concurrent code/barrier.cpp	
++++ b/Chapter 08 - Designing concurrent code/barrier.cpp	
+@@ -4,22 +4,32 @@
+ 
+ class barrier {
+ public:
+-    explicit barrier(std::size_t count) : count_(count), spaces_(count_), generation_(0) { }
++    barrier(std::size_t count) : count_(count), spaces_(count), generation_(0) { }
+     
+     void wait()
+     {
+-        std::size_t my_gen = generation_;
++        std::size_t my_gen = generation_.load();
+         
+         if (!--spaces_) {
+-            spaces_ = count_;
++            spaces_ = count_.load();
+             ++generation_;
+         } else {
+-            while (generation_ == my_gen) { std::this_thread::yield(); }
++            while (generation_.load() == my_gen) { std::this_thread::yield(); }
++        }
++    }
++    
++    void done_waiting()
++    {
++        --count_;
++        
++        if (!--spaces_) {
++            spaces_ = count_.load();
++            ++generation_;
+         }
+     }
+     
+ private:
+-    std::size_t count_;
++    std::atomic<std::size_t> count_;
+     
+     std::atomic<std::size_t> spaces_;
+     std::atomic<std::size_t> generation_;
+```
+
+</details>
 
 ### ...work in progress
 #
