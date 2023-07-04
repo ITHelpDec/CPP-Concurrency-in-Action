@@ -363,13 +363,13 @@ This seems quite important in regards to throwing and propogating exceptions.
 
 The author provides an implementation of a barrier, but we can also use `std::barrier` from C++20 (I'll try both once we get into the implementation).
 
-[barrier.cpp]([barrier.cpp](https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/dab2b33444d5db859bf52df27c6ba5ee8a526031/Chapter%2008%20-%20Designing%20concurrent%20code/barrier.cpp))
+[barrier.cpp](https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/dab2b33444d5db859bf52df27c6ba5ee8a526031/Chapter%2008%20-%20Designing%20concurrent%20code/barrier.cpp)
 
 > _"When it reaches zero, the number of spaces is reset back to count, and the generation is increased to signal to the other threads that they can continue f. If the number of free spaces does not reach zero, you have to wait."_ – pg. 295
 
 The author chooses to handle threads dropping out because it avoids threads doing unnecessary work (that's why we use atomic variables, to enable external syncrhonisation from multiple threads) - the use of atomic variables means we need to tweak the implementation slightly (not mentioned in the book).
 
-[slightly_updated_barrier.cpp](https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/c04c0bbfcdbb9756a959cc036c36b3428b51a646/Chapter%2008%20-%20Designing%20concurrent%20code/barrier.cpp)
+[slightly_updated_barrier.cpp](https://github.com/ITHelpDec/CPP-Concurrency-in-Action/blob/c04c0bbfcdbb9756a959cc036c36b3428b51a646/Chapter%2008%20-%20Designing%20concurrent%20code/barrier.cpp) ([what's changed](https://github.com/ITHelpDec/CPP-Concurrency-in-Action/compare/dab2b33444d5db859bf52df27c6ba5ee8a526031...c04c0bbfcdbb9756a959cc036c36b3428b51a646))
 
 ### ...work in progress
 #
