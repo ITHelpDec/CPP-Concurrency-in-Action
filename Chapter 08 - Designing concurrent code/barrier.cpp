@@ -4,20 +4,17 @@
 
 class barrier {
 public:
-    explicit barrier(std::size_t count) : count_(count), generation_(0)
-    {
-        spaces_ = count_.load();
-    }
+    barrier(std::size_t count) : count_(count), spaces_(count), generation_(0) { }
     
     void wait()
     {
-        std::size_t my_gen = generation_;
+        std::size_t my_gen = generation_.load();
         
         if (!--spaces_) {
             spaces_ = count_.load();
             ++generation_;
         } else {
-            while (generation_ == my_gen) { std::this_thread::yield(); }
+            while (generation_.load() == my_gen) { std::this_thread::yield(); }
         }
     }
     
