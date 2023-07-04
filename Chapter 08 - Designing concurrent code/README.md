@@ -423,6 +423,11 @@ index 903cf43..c2509f5 100644
 
 </details>
 
+### Partially-complete sum
+Another instance of incomplete code - my thanks go out to user [xxrlzzz](https://github.com/xxrlzzz) for the fix, as this one would have taken a while to debug (but again shows that the code wasn't tested).
+
+[parrer_partial_sum.cpp](parrer_partial_sum.cpp)
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
