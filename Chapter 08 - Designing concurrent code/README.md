@@ -428,7 +428,7 @@ Another instance of incomplete code - my thanks go out to user [xxrlzzz](https:/
 
 [parrer_partial_sum.cpp](parrer_partial_sum.cpp)
 
-I've attached a link to a PR [here](https://github.com/anthonywilliams/ccia_code_samples/issues/5) that addresses the issues in the code.
+I've attached a link to a PR [here]([https://github.com/anthonywilliams/ccia_code_samples/issues/5](https://github.com/anthonywilliams/ccia_code_samples/pull/45)) that addresses the issues in the code.
 
 ### Summary
 This was a lengthy chapter - unfortunately, it was littered with what feels like more errors than previous chapters.
