@@ -12,6 +12,21 @@ A nice analogy comparing car pools to thread pools - everyone has access to the 
 
 [thread_pool.cpp](thread_pool.cpp)
 
+We need to use the lock-based thread_safe queue from Chapter 6 and before for this to work (unfortunately, the lock-free queue will not work, as we have not created a `.try_pop()` member function, but we could create one if we wanted).
+
+The `.submit()` function passes a function onto our multithreaded worker queue for processing.
+
+We must also pay attention to the order of our member declarations to ensure destruction happens in the right order.
+
+> _"...both the `done_` flag and the `workq_` must be declared before the `threads_` vector, which must in turn be declared before the `joiner_`."</br>"This ensures that the members are destroyed in the right order; you can’t destroy the queue safely until all the threads have stopped, for example."_ – pg. 303
+
+> _"For many purposes this simple thread pool will suffice, especially if the tasks are entirely independent and don’t return any values or perform any blocking operations."_ – pg. 303
+
+### Waiting for tasks to finish
+> _"Because std::packaged_task<> instances are not copyable, just movable, you can no longer use std::function<> for the queue entries...instead, you must use a custom function wrapper that can handle move-only types"_ – pg. 304
+
+[waitable_thread_pool.cpp](waitable_thread_pool.cpp)
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
