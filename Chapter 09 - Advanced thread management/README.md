@@ -27,6 +27,8 @@ We must also pay attention to the order of our member declarations to ensure des
 
 [waitable_thread_pool.cpp](waitable_thread_pool.cpp)
 
+I'll take the author's word that this is the easiest way to handle passing a a move-only `std::packaged_task<>` - a few similar throwbacks to previous exampmles with opting for `std::invoke_result_t` over the deprecated `std::result_of`, and choosing `std::make_unique` over raw calls to `operator new` for better exception safety ([PR](https://github.com/anthonywilliams/ccia_code_samples/pull/46) here).
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
