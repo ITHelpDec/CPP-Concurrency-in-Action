@@ -153,18 +153,17 @@ public:
     function_wrapper(function_wrapper&) = delete;
     function_wrapper& operator=(const function_wrapper&) = delete;
     
-    function_wrapper(function_wrapper &&other) : impl_(std::move(other.impl_)) { }
+    function_wrapper(function_wrapper &&other) noexcept : impl_(std::move(other.impl_)) { }
     
-    function_wrapper& operator=(function_wrapper &&rhs)
+    function_wrapper& operator=(function_wrapper &&rhs) noexcept
     {
-        // no check for self-assignment in book?
-        if (this != &rhs) { impl_ = std::move(rhs.impl_); }
+        impl_ = std::move(rhs.impl_);
         return *this;
     }
     
     template <typename Func>
     // function_wrapper(Func &&f) : impl_(new impl_type<Func>(std::move(f))) { }
-    function_wrapper(Func &&f) : impl_(std::make_unique<impl_type<Func>>(std::move(f))) { }
+    function_wrapper(Func &&f) noexcept : impl_(std::make_unique<impl_type<Func>>(std::move(f))) { }
     
     void operator() () { impl_->call(); }
     
