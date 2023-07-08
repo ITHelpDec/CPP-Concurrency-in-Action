@@ -214,9 +214,9 @@ public:
     // }
     
     template <typename Func>
-    std::future<std::result_of_t<Func&&()>> submit(Func f) // std::result_of is deprecated
+    std::future<std::invoke_result_t<Func&&>> submit(Func f) // std::result_of is deprecated
     {
-        typedef std::result_of_t<Func&&()> T;
+        typedef std::invoke_result_t<Func&&> T;
         
         std::packaged_task<T()> task(std::move(f));
         std::future<T> result(task.get_future());
