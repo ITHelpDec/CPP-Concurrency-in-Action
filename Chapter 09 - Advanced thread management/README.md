@@ -33,6 +33,11 @@ One thing that stood out, though, is the data race when adding tasks to our mult
 
 The key takeaway is that the use of `std::future<T>` allows us to wait for our task to complete.
 
+### Waitable parallel accumulate
+Another instance of poorly-tested code from listing 9.3 - PR is [here](https://github.com/anthonywilliams/ccia_code_samples/pull/48).
+
+[waitable_accumulate.cpp](waitable_accumulate.cpp)
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
