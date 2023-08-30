@@ -38,6 +38,19 @@ Another instance of poorly-tested code from listing 9.3 - PR is [here](https://g
 
 [waitable_accumulate.cpp](waitable_accumulate.cpp)
 
+### Pending tasks
+Similar to the loop of the worker thread, this `run_pending_task` function tries to take a task off the queue and run it if there is one - otherwise, it yields to the OS to reschedule the thread.
+
+We have two more examples of code that is a bit all over the show from the author, with non-existent discrepancies [here]([url](https://github.com/anthonywilliams/ccia_code_samples/issues/49)) and overall non-functioning code [here]([url](https://github.com/anthonywilliams/ccia_code_samples/issues/50)) for listing 9.5.
+
+### Avoiding contention in the work queue
+Because there's only one data source...
+> _", ...as the number of processors increases, there’s increasing contention on the queue..."_ – pg 310
+
+This can be a huge performance drain due to cache ping-pong (even if you've opted for a lock-free queue to avoid explicit waiting).
+
+One way to avoid cache ping-ponging is to use a separate work queue per thread (I'll maybe implement it at a later date).
+
 ### ...work in progress
 #
 ### If you've found anything from this repo useful, please consider contributing towards the only thing that makes it all possible – my unhealthy relationship with 90+ SCA score coffee beans.
