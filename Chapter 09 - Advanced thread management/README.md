@@ -49,7 +49,21 @@ Because there's only one data source...
 
 This can be a huge performance drain due to cache ping-pong (even if you've opted for a lock-free queue to avoid explicit waiting).
 
-One way to avoid cache ping-ponging is to use a separate work queue per thread (I'll maybe implement it at a later date).
+> _"One way to avoid cache ping-ponging is to use a separate work queue per thread"_ – pg. 310
+
+(I'll maybe look into implementing this at a later date).
+
+> _"This works fine for reducing contention, but when the distribution of work is uneven, it can easily result in one thread having a lot of work in its queue while the others have no work to do"_ – pg. 311
+
+An interesting example of this uneven distribution would be with "quick sort", but, in the next section, we will learn to "steal" work from other threads to ensure appropriate load balancing.
+
+### Work stealing
+
+In order for this to work, the saturated queue must be accessible to the thread doing the stealing - the way to do this is by having each thread register its queue with the thread pool (or be given one by the thread pool).
+
+We must also "ensure that the data in the work queue is suitably synchronised and protected so that (y)our invariants are protected" (pg. 311).
+
+One suggestion from the other is to have a lock-free double-ended queue that allows the owner thread to push and pop from one end of the queue, while the other threads can steal from the other end.
 
 ### ...work in progress
 #
