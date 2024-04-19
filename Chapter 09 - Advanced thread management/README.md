@@ -63,7 +63,11 @@ In order for this to work, the saturated queue must be accessible to the thread 
 
 We must also "ensure that the data in the work queue is suitably synchronised and protected so that (y)our invariants are protected" (pg. 311).
 
-One suggestion from the other is to have a lock-free double-ended queue that allows the owner thread to push and pop from one end of the queue, while the other threads can steal from the other end.
+One suggestion from the author is to have a lock-free double-ended queue that allows the owner thread to push and pop from one end of the queue, while the other threads can steal from the other end (I've attached some example code below - no testing, however).
+
+[work_stealing.cpp](work_stealing.cpp)
+
+> _"This can help improve performance from a cache perspective, because the data related to that task is more liekly to still be in the cache thatn the data related to a task pushed on the queue previosuly_" – pg. 313
 
 ### ...work in progress
 #
